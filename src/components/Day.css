@@ -1,0 +1,68 @@
+.custom-block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0.5em 0;
+}
+
+.custom-label {
+    border-radius: 0.25em;
+    margin-right: 0.5em;
+    padding: 0.25em 0.5em;
+    border: 1px solid var(--border);
+}
+
+.notebook-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon {
+    margin: 0 0.25em;
+    font-size: 2em;
+}
+
+.notebook-body {
+    display: flex;
+    flex-direction: row;
+    height: 90%;  
+}
+
+.notebook-tracker {
+    padding: 2em 0;
+    flex-basis: 200px;
+    border-right: 1px solid var(--border);
+}
+
+.notebook-editor {
+    flex-grow: 1;
+    height: 100%;
+    padding: 1em;
+
+}
+
+.notes-toolbar {
+    display: flex;
+    flex-flow: row wrap;
+    padding-bottom: 1em;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1em;
+}
+
+button.btn {
+    font-size: 1em;
+    padding: 0.25em 0.5em;
+    background-color: transparent;
+    margin-right: 0.5em;
+
+    color: var(--text-color);
+    border-radius: 0.25em;
+    border: 1px solid var(--border);
+    transition: all 200ms;
+}
+
+button.btn:hover {
+    background-color: var(--hover);
+}

@@ -1,0 +1,15 @@
+.tracker-container {
+    padding: 0.5em;
+    margin-bottom: 2em;
+}
+
+.tracker-name {
+    margin-bottom: 0.5em;
+}
+
+input[type='range'] {
+    -webkit-appearance: none;
+    background: linear-gradient(to right, rgba(0,0,0,0), var(--text-color));
+    height: 1em;
+    border-radius: 8px;   
+}
