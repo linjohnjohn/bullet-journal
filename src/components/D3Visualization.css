@@ -1,0 +1,12 @@
+.axis path,
+.axis line {
+    fill: none;
+    stroke: var(--text-color);
+    shape-rendering: crispEdges;
+}
+
+.line {
+    fill: none;
+    stroke: var(--spare-color2);
+    stroke-width: 1.5px;
+}

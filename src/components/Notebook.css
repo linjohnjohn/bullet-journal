@@ -26,6 +26,7 @@
 
 .notebook-labels button {
     /* padding: 0.5em 2em; */
+    outline: none;
     transform: rotate(90deg);
     background-color: var(--tab1);
     border: none;

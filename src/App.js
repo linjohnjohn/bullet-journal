@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 import firebase from 'firebase';
 
 
@@ -55,12 +55,14 @@ class App extends React.Component {
       </div>
       <div className="journal-body">
         <Router>
-          <Route exact={true} path='/'>
-            <Home user={user} />
-          </Route>
-          <Route exact={true} path='/login'>
-            {user ? <Redirect to='/' /> : <div></div>}
-          </Route>
+          <Switch>
+            <Route exact={true} path='/login'>
+              {user ? <Redirect to='/' /> : <div></div>}
+            </Route>
+            <Route path='/'>
+              <Home user={user} />
+            </Route>
+          </Switch>
         </Router>
       </div>
     </>

@@ -15,7 +15,6 @@ export default class JournalEntryAPI {
         if (!user) {
             throw new Error('please login');
         }
-        debugger;
         const UTCDate = this.convertDateToUTC(date);
         let doc = await db.collection('user').doc(user.uid).collection('journalEntry').doc(UTCDate.toUTCString()).get();
 
