@@ -1,0 +1,35 @@
+.select-message {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.viz-panel-control {
+    flex-basis: 200px;
+    flex-grow: 1;
+    border-right: 1px solid var(--border);
+    padding-right: 0.5em;
+}
+
+.viz-panel-control p {
+    text-align: center;
+}
+
+.viz-calendar {
+    flex-grow: 3;
+    flex-basis: 600px;
+    padding: 2em 0 0 2em;
+}
+
+.centered-button-row {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.viz-panel-control .trackers > button {
+    margin-bottom: 0.5em;
+    margin-right: 0;
+}

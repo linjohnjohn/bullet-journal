@@ -3,7 +3,7 @@ import { Redirect, withRouter, Switch, Route } from 'react-router-dom';
 
 import './Notebook.css'
 import Day from './Day';
-import Visualization from './D3Visualization';
+import VisualizationControl from './VisualizationControl';
 
 class Notebook extends React.Component {
     state = {
@@ -17,15 +17,14 @@ class Notebook extends React.Component {
         return <div className='notebook'>
             <div className='notebook-container'>
                 <Switch>
-                    <Route exact={true} path='/visualization' component={Visualization} />
+                    <Route exact={true} path='/visualization' component={VisualizationControl} />
                     <Route path='/' component={Day} />
                 </Switch>
             </div>
             <div className="notebook-labels">
-                <button onClick={(e) => {this.props.history.push('/')}}>Day</button>
-                <button>Month</button>
-                <button>Year</button>
-                <button onClick={(e) => {this.props.history.push('/visualization')}}>Visualizations</button>
+                <button onClick={(e) => {this.props.history.push('/')}}>Today</button>
+                <button>Tomorrow</button>
+                <button onClick={(e) => {this.props.history.push('/visualization')}}>Tracker</button>
             </div>
         </div>
     }

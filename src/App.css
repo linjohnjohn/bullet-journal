@@ -5,11 +5,12 @@ html {
   --tab2: #FFB4A2;
   --tab3: #F2A69F;
   --tab4: #E5989B;
-  --border: #B5838D;
   --border: #6D6875;
   --hover: #FFC1AA;
   --spare-color: #917681;
+  --spare-color2: #B5838D;
   --text-color: #6D6875;
+  --calendar-dull-box: #6D687599;
   box-sizing: border-box;
   background-color: var(--background-2);
   color: var(--text-color);

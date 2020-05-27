@@ -9,6 +9,7 @@ import 'draft-js/dist/Draft.css'
 import JournalEntryAPI from '../models/JournalEntryAPI';
 import Tracker from './Tracker';
 import './Day.css';
+import TrackerAPI from '../models/TrackerAPI';
 
 const CustomLabel = ({ type, children }) => {
     let text = 'Undefined';
@@ -34,16 +35,6 @@ const CustomLabel = ({ type, children }) => {
     </div>
 }
 
-// const myBlockRenderer = contentBlock => {
-//     debugger;
-//     const type = contentBlock.getType();
-//     if (type === 'task') {
-//         return {
-//             component: Task,
-//             editable: true,
-//         };
-//     }
-// }
 const blockRenderMap = Immutable.Map({
     'task': {
         wrapper: <CustomLabel type='task' />,
@@ -73,14 +64,16 @@ export default class Day extends React.Component {
     state = {
         date: new Date(),
         journalEntry: null,
-        editorState: EditorState.createEmpty()
+        editorState: EditorState.createEmpty(),
+        trackers: []
     }
 
     async componentDidMount() {
         const { date } = this.state;
         const journalEntry = await JournalEntryAPI.getOrCreateJournalEntry(date);
+        const trackers = await TrackerAPI.getTrackerValues(date);
         const editorState = computeEditorState(journalEntry);
-        this.setState({ journalEntry, editorState })
+        this.setState({ journalEntry, editorState, trackers });
     }
 
 
@@ -88,9 +81,9 @@ export default class Day extends React.Component {
         const { date } = this.state;
         date.setDate(date.getDate() + i);
         const journalEntry = await JournalEntryAPI.getOrCreateJournalEntry(date);
-        debugger;
+        const trackers = await TrackerAPI.getTrackerValues(date);
         const editorState = computeEditorState(journalEntry);
-        this.setState({ date, journalEntry, editorState });
+        this.setState({ date, journalEntry, editorState, trackers });
     }
 
     handleChange = (editorState) => {
@@ -142,11 +135,32 @@ export default class Day extends React.Component {
         this.handleChange(newEditorState);
     }
 
+    handleTrackerChange = (name, value) => {
+        const { trackers } = this.state;
+        const i = trackers.findIndex(t => t.name === name);
+        const oldTracker = trackers[i];
+        const newTrackers = Object.assign([], trackers, {[i]: {
+            ...oldTracker,
+            value
+        }});
+        this.setState({ trackers: newTrackers });
+        this.handleSaveTracker();
+    }
+
+    handleSaveTracker = Debounce(async () => {
+        const { trackers, date } = this.state;
+        await TrackerAPI.updateTrackerValue(date, trackers)
+        //@todo handle saved notification
+    }, 500);
+
+    // handleTrackerSave = () => {
+        
+    // }
+
     render() {
-        const { journalEntry } = this.state;
-        const trackers = (journalEntry && journalEntry.trackers) || [];
+        const { journalEntry, trackers } = this.state;
         const date = (journalEntry && journalEntry.date) || Date.now();
-        const readableDate = moment(date).format('MMMM D, YYYY');
+        const readableDate = moment.utc(date).format('MMMM D, YYYY');
 
         return <>
             <div className="notebook-header">
@@ -161,7 +175,11 @@ export default class Day extends React.Component {
 
             <div className="notebook-body">
                 <div className="notebook-tracker">
-                    {trackers.map(t => <Tracker tracker={t} key={t.name}></Tracker>)}
+                    {trackers.map(t => <Tracker
+                        tracker={t}
+                        key={t.name}
+                        handleChange={(value) => this.handleTrackerChange(t.name, value)}
+                    />)}
                 </div>
                 <div className="notebook-editor">
                     <div className='notes-toolbar'>

@@ -1,13 +1,10 @@
 import firebase from 'firebase';
+import { convertDateToUTC } from './dateUtils';
+
 const db = firebase.firestore();
 
+
 export default class JournalEntryAPI {
-    static convertDateToUTC(date) {
-        const month = date.getMonth();
-        const dateOfMonth = date.getDate();
-        const year = date.getFullYear();
-        return new Date(Date.UTC(year, month, dateOfMonth));
-    }
 
 
     static async getOrCreateJournalEntry(date) {
@@ -15,7 +12,7 @@ export default class JournalEntryAPI {
         if (!user) {
             throw new Error('please login');
         }
-        const UTCDate = this.convertDateToUTC(date);
+        const UTCDate = convertDateToUTC(date);
         let doc = await db.collection('user').doc(user.uid).collection('journalEntry').doc(UTCDate.toUTCString()).get();
 
         if (doc.exists) {
@@ -31,12 +28,12 @@ export default class JournalEntryAPI {
                 {
                     name: 'Worked Out',
                     type: 'Binary',
-                    value: 'Yes'
+                    value: null
                 },
                 {
-                    name: 'Sleep',
+                    name: 'Sleep Amount',
                     type: 'Number',
-                    value: 8
+                    value: null
                 }
             ],
             contentState: null
@@ -45,13 +42,29 @@ export default class JournalEntryAPI {
         return journalEntry;
     }
 
+    static async getJournalEntryByDateRange(startDate, endDate) {
+        const user = firebase.auth().currentUser;
+        if (!user) {
+            throw new Error('please login');
+        }
+
+        const UTCStartDate = convertDateToUTC(startDate);
+        const UTCEndDate = convertDateToUTC(endDate);
+        let querySnapshot = await db.collection('user').doc(user.uid).collection('journalEntry').where('date',  '>=', UTCStartDate).where('date', '<=', UTCEndDate).get();
+        return querySnapshot.docs.map(doc => {
+            const data = doc.data();
+            data.date = data.date.toDate();
+            return data;
+        });
+    }
+
     static async updateJournalEntry(date, updatedJournalEntry) {
         const user = firebase.auth().currentUser;
         if (!user) {
             throw new Error('please login');
         }
 
-        const UTCDate = this.convertDateToUTC(date);
+        const UTCDate = convertDateToUTC(date);
         await db.collection('user').doc(user.uid).collection('journalEntry').doc(UTCDate.toUTCString()).update(updatedJournalEntry);
         return true; //@todo catch errors
 
@@ -62,7 +75,7 @@ export default class JournalEntryAPI {
         if (!user) {
             throw new Error('please login');
         }
-        const UTCDate = this.convertDateToUTC(date)
+        const UTCDate = convertDateToUTC(date)
 
         const doc = await db.collection('user').doc(user.uid).collection('journalEntry').doc(UTCDate).set({
             owner: user.uid,
@@ -77,7 +90,7 @@ export default class JournalEntryAPI {
             throw new Error('please login');
         }
 
-        const UTCDate = this.convertDateToUTC(date);
+        const UTCDate = convertDateToUTC(date);
         const doc = await db.collection('user').doc(user.uid).collection('journalEntry').doc(UTCDate).get();
         if (!doc.exists) {
             throw new Error('entry does not exist');

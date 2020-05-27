@@ -6,6 +6,7 @@ import firebase from 'firebase';
 import './models/firebase';
 import Home from './components/Notebook';
 import './App.css';
+import UserAPI from './models/UserAPI';
 
 const provider = new firebase.auth.GoogleAuthProvider();
 
@@ -15,14 +16,16 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    firebase.auth().onAuthStateChanged((user) => {
+    firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
+        await UserAPI.initializeUser();
         this.setState({ user });
       } else {
         this.setState({ user: null });
       }
     })
   }
+  
   handleGoogleLogin = () => {
     firebase.auth().signInWithPopup(provider).then((result) => {
       var token = result.credential.accessToken;
