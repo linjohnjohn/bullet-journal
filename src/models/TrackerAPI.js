@@ -73,6 +73,8 @@ export default class TrackerAPI {
             return {
                 name: t.name,
                 type: t.type,
+                min: t.min,
+                max: t.max,
                 value: (t.values || {})[UTCDate.getTime()] || null
             }
         });

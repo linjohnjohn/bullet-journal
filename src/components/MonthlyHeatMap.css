@@ -8,6 +8,14 @@
     width: 100%;  
 }
 
+#tooltip {
+    background-color: var(--background-2);
+    padding: 0.5em;
+    border-radius: 0.5em;
+    opacity: 0;
+    pointer-events: none;
+}
+
 .day rect{
     fill:var(--calendar-dull-box);
     stroke-width: 1px;
@@ -35,6 +43,7 @@
 
 .month-in-year {
     flex-basis: 150px;
+    min-width: 25%;
     flex-grow: 1;
-    margin: 0 1em 1em 0;
+    padding: 0 1em 1em 0;
 }

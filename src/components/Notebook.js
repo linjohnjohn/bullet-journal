@@ -1,9 +1,9 @@
 import React from 'react';
-import { Redirect, withRouter, Switch, Route } from 'react-router-dom';
-
-import './Notebook.css'
+import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import Day from './Day';
+import './Notebook.css';
 import VisualizationControl from './VisualizationControl';
+
 
 class Notebook extends React.Component {
     state = {
@@ -18,13 +18,20 @@ class Notebook extends React.Component {
             <div className='notebook-container'>
                 <Switch>
                     <Route exact={true} path='/visualization' component={VisualizationControl} />
-                    <Route path='/' component={Day} />
+                    <Route path='/' render={(props) => {
+                        const { date = new Date() } = props.location.state || {}
+                        return <Day key={date} date={date} />
+                    }} />
                 </Switch>
             </div>
             <div className="notebook-labels">
-                <button onClick={(e) => {this.props.history.push('/')}}>Today</button>
-                <button>Tomorrow</button>
-                <button onClick={(e) => {this.props.history.push('/visualization')}}>Tracker</button>
+                <button onClick={(e) => { this.props.history.push('/') }}>Today</button>
+                <button onClick={() => {
+                    const d = new Date();
+                    d.setDate(d.getDate() + 1);
+                    this.props.history.push({ pathname: '/', state: { date: d } })
+                }}>Tomorrow</button>
+                <button onClick={(e) => { this.props.history.push('/visualization') }}>Tracker</button>
             </div>
         </div>
     }

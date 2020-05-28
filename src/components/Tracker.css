@@ -1,5 +1,5 @@
 .tracker-container {
-    padding: 0.5em;
+    padding: 0.5em 1em;
     margin-bottom: 2em;
 }
 
@@ -7,9 +7,26 @@
     margin-bottom: 0.5em;
 }
 
+.range-wrap {
+    position: relative;
+}
+
 input[type='range'] {
     -webkit-appearance: none;
     background: linear-gradient(to right, rgba(0,0,0,0), var(--text-color));
     height: 1em;
-    border-radius: 8px;   
+    border-radius: 8px;
+    width: 100%;
 }
+
+.tracker-bubble {
+    background: var(--text-color);
+    color: var(--background);
+    padding: 0.5em;
+    opacity: .8;
+    position: absolute;
+    border-radius: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75em;
+  }

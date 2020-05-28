@@ -30,6 +30,12 @@
     height: 90%;  
 }
 
+.notebook-footer {
+    display: flex;
+    flex-direction: row-reverse;
+    height: 10%;  
+}
+
 .notebook-tracker {
     padding: 2em 0;
     flex-basis: 200px;

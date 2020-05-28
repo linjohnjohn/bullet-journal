@@ -49,14 +49,14 @@ export default class VisualizationControl extends React.Component {
 
         let trackerMetadata = null;
         if (selectedTrackerName) {
-            const { type, min, max } = trackers.filter(t => t.name === selectedTrackerName)[0]
-            trackerMetadata = { type, min, max }
+            const { type, min, max, name } = trackers.filter(t => t.name === selectedTrackerName)[0]
+            trackerMetadata = { type, min, max, name }
         }
 
-        let readableDate = moment.utc(date).format('MMMM YYYY');
+        let readableDate = moment(date).format('MMMM YYYY');
 
         if (selectedTimePeriod === 'Year') {
-            readableDate = moment.utc(date).format('YYYY');
+            readableDate = moment(date).format('YYYY');
         }
 
         return <>
@@ -98,7 +98,7 @@ export default class VisualizationControl extends React.Component {
                         selectedTimePeriod === 'Month' ? 
                             <MonthlyHeatMap data={data} date={date} trackerMetadata={trackerMetadata} /> :
                             <YearlyHeatMap data={data} date={date} trackerMetadata={trackerMetadata}></YearlyHeatMap> :
-                        <div className='select-message'>
+                        <div className='centered-message'>
                             <p>Select a Tracker</p>
                         </div>
                     }

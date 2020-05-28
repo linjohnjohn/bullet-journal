@@ -1,11 +1,3 @@
-.select-message {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .viz-panel-control {
     flex-basis: 200px;
     flex-grow: 1;
@@ -29,7 +21,7 @@
     justify-content: space-around;
 }
 
-.viz-panel-control .trackers > button {
+.viz-panel-control .centered-button-row > button {
     margin-bottom: 0.5em;
     margin-right: 0;
 }

@@ -1,9 +1,6 @@
 import React from 'react';
-import moment from 'moment';
 import * as d3 from "d3";
 
-import JournalEntryAPI from '../models/JournalEntryAPI';
-import Tracker from './Tracker';
 import './D3Visualization.css';
 
 
