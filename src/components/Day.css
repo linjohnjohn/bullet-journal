@@ -22,6 +22,16 @@
 .icon {
     margin: 0 0.25em;
     font-size: 2em;
+    transition: all 200ms;
+}
+
+.icon:hover {
+    transform: scale(1.25);
+}
+
+.icon:active {
+    opacity: 0.6;
+    transform: scale(1.5);
 }
 
 .notebook-body {
@@ -76,5 +86,10 @@ button.btn.selected {
 }
 
 button.btn:hover {
-    background-color: var(--hover);
+    transform: scale(1.05);
+}
+
+button.btn:active {
+    color: white;
+    background-color: var(--text-color);
 }

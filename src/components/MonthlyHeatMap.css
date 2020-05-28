@@ -19,11 +19,17 @@
 .day rect{
     fill:var(--calendar-dull-box);
     stroke-width: 1px;
-    stroke: var(--background)
+    stroke: var(--background);
+    transition: all 200ms;
 }
 
 .day rect.colored {
     fill: var(--hover);
+}
+
+.day:hover > rect {
+    transform: scale(.95);
+    transform-origin: 50px 50px;
 }
 
 .day text {
