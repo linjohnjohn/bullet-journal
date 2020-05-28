@@ -23,7 +23,7 @@ class YearlyHeatMap extends React.Component {
             day_of_month = d3.utcFormat("%e"), // day of the month
             week = d3.utcFormat("%U"), // week number of the year
             monthf = d3.utcFormat("%m"), // month number
-            yearf = d3.utcFormat("%Y"),
+            yearf = d3.utcFormat("%Y");
 
         const datesByMonth = []
         for (let i = 0; i < 12; i++) {
