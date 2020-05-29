@@ -12,6 +12,7 @@ Tracker
 */
 export default class TrackerAPI {
     static async createTracker(...newTracker) {
+        // @todod check trackers
         const user = firebase.auth().currentUser;
         if (!user) {
             throw new Error('please login');
@@ -23,7 +24,7 @@ export default class TrackerAPI {
         await db.collection('user').doc(user.uid).update({
             trackers: newTrackers
         });
-        return newTracker;
+        return newTrackers;
     }
 
     static async createDefaultTrackers() {
@@ -40,6 +41,22 @@ export default class TrackerAPI {
         }
         const doc = await db.collection('user').doc(user.uid).get();
         const { trackers = [] } = doc.data();
+        return trackers;
+    }
+
+
+    static async deleteTracker(name) {
+        const user = firebase.auth().currentUser;
+        if (!user) {
+            throw new Error('please login');
+        }
+        const doc = await db.collection('user').doc(user.uid).get();
+        const { trackers = [] } = doc.data();
+        const index = trackers.findIndex(t => t.name === name);
+        trackers.splice(index, 1);
+        await db.collection('user').doc(user.uid).update({
+            trackers
+        });
         return trackers;
     }
 
@@ -67,8 +84,12 @@ export default class TrackerAPI {
     }
 
     static async getTrackerValues(date) {
-        const UTCDate = convertDateToUTC(date);
         const trackers = await this.getAllTrackers();
+        return this.getTrackerValuesFromTrackers(date, trackers);
+    }
+
+    static getTrackerValuesFromTrackers(date, trackers) {
+        const UTCDate = convertDateToUTC(date);
         return trackers.map(t => {
             return {
                 name: t.name,
@@ -79,5 +100,4 @@ export default class TrackerAPI {
             }
         });
     }
-
 }

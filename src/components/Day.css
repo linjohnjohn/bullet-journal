@@ -46,10 +46,21 @@
     height: 10%;  
 }
 
+.notebook-tracker-container {
+    flex-basis: 250px;
+    border-right: 1px solid var(--border);
+    height: 100%;
+}
+
 .notebook-tracker {
     padding: 2em 0;
-    flex-basis: 200px;
-    border-right: 1px solid var(--border);
+    height: 100%;
+}
+
+.tracker-toolbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .notebook-editor {

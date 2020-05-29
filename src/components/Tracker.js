@@ -12,7 +12,7 @@ function setBubble(rangeEl, bubbleEl) {
     bubbleEl.style.left = `calc(${percent}% + (${8 - percent * 0.15}px))`;
 }
 
-const Tracker = ({ tracker: { type, name, value, min, max }, handleChange }) => {
+const Tracker = ({ tracker: { type, name, value, min, max }, handleChange, isEditMode }) => {
     let bubble = useRef(null);
 
     useEffect(() => {

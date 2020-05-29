@@ -1,0 +1,21 @@
+.modal-overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--text-color);
+    opacity: .6;
+    z-index: 10;
+}
+
+.modal {
+    z-index: 100;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--notebook-background);
+    border-radius: 1em;
+    padding: 2em;
+}

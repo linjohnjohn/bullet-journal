@@ -9,7 +9,7 @@
 }
 
 #tooltip {
-    background-color: var(--background-2);
+    background-color: var(--app-background);
     padding: 0.5em;
     border-radius: 0.5em;
     opacity: 0;
@@ -19,7 +19,7 @@
 .day rect{
     fill:var(--calendar-dull-box);
     stroke-width: 1px;
-    stroke: var(--background);
+    stroke: var(--notebook-background);
     transition: all 200ms;
 }
 
@@ -36,7 +36,7 @@
     font-size: 3em;
     text-anchor: middle;
     dominant-baseline: central;
-    fill: var(--background);
+    fill: var(--notebook-background);
     fill-opacity: 90%;
 }
 

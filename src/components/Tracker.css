@@ -1,17 +1,18 @@
 .tracker-container {
     padding: 0.5em 1em;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
 }
 
 .tracker-name {
-    margin-bottom: 0.5em;
+    margin: 0.5em 0;
 }
 
 .range-wrap {
     position: relative;
+    margin-bottom: 1.75em;
 }
 
-input[type='range'] {
+.range-wrap input[type='range'] {
     -webkit-appearance: none;
     background: linear-gradient(to right, rgba(0,0,0,0), var(--text-color));
     height: 1em;
@@ -21,7 +22,7 @@ input[type='range'] {
 
 .tracker-bubble {
     background: var(--text-color);
-    color: var(--background);
+    color: var(--notebook-background);
     padding: 0.5em;
     opacity: .8;
     position: absolute;
@@ -30,3 +31,11 @@ input[type='range'] {
     transform: translateX(-50%);
     font-size: 0.75em;
   }
+
+.tracker-edit-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0em;
+}

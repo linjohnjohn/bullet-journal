@@ -1,6 +1,6 @@
 html {
-  --background: #FFF1D5;
-  --background-2: #FFCDB2;
+  --notebook-background: #FFF1D5;
+  --app-background: #FFCDB2;
   --tab1: #FFC1AA;
   --tab2: #FFB4A2;
   --tab3: #F2A69F;
@@ -12,12 +12,13 @@ html {
   --text-color: #6D6875;
   --calendar-dull-box: #6D687599;
   box-sizing: border-box;
-  background-color: var(--background-2);
+  background-color: var(--app-background);
   color: var(--text-color);
 }
 
 *, *:before, *:after {
   box-sizing: inherit;
+  outline-color: var(--app-background);
 }
 
 .navbar {
@@ -40,4 +41,40 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.flex-row {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+}
+
+input.full-width {
+  font-size: 1em;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid var(--text-color);
+  color: var(--text-color);
+  border-radius: 0.25em;
+  display: block;
+  width: 100%;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.input-group {
+  margin-bottom: 1em;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+.input-group input.full-width {
+  margin-bottom: 0em;
+  text-align: center;
 }

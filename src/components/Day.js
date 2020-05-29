@@ -7,7 +7,7 @@ import Debounce from 'awesome-debounce-promise';
 import 'draft-js/dist/Draft.css'
 
 import JournalEntryAPI from '../models/JournalEntryAPI';
-import Tracker from './Tracker';
+import TrackerManager from './TrackerManager';
 import './Day.css';
 import TrackerAPI from '../models/TrackerAPI';
 
@@ -79,11 +79,16 @@ export default class Day extends React.Component {
     }
 
     async componentDidMount() {
+        if (this._UNMOUNTED) { return; }
         const { date } = this.state;
         const journalEntry = await JournalEntryAPI.getOrCreateJournalEntry(date);
         const trackers = await TrackerAPI.getTrackerValues(date);
         const editorState = computeEditorState(journalEntry);
         this.setState({ journalEntry, editorState, trackers, isLoading: false });
+    }
+
+    componentWillUnmount() {
+        this._UNMOUNTED = true;
     }
 
     handleIncrementDate = async (i) => {
@@ -102,6 +107,7 @@ export default class Day extends React.Component {
     }
 
     handleSave = Debounce(async () => {
+        if (this._UNMOUNTED) { return; }
         const { editorState, journalEntry, date } = this.state;
         const contentState = convertToRaw(editorState.getCurrentContent());
         const updatedJournalEntry = { ...journalEntry, contentState };
@@ -109,12 +115,6 @@ export default class Day extends React.Component {
         this.setState({ isSaving: false });
     }, 500);
 
-    // handleTab = (e) => {
-    //     const { editorState } = this.state;
-    //     const newState = RichUtils.onTab(e, editorState, 3);
-    //     this.handleChange(newState);
-    //     return 'nothandled';
-    // }
 
     handleReturn = (e) => {
         e.preventDefault();
@@ -146,7 +146,7 @@ export default class Day extends React.Component {
         this.handleChange(newEditorState);
     }
 
-    handleTrackerChange = (name, value) => {
+    handleChangeTrackerValue = (name, value) => {
         const { trackers } = this.state;
         const i = trackers.findIndex(t => t.name === name);
         const oldTracker = trackers[i];
@@ -157,19 +157,28 @@ export default class Day extends React.Component {
             }
         });
         this.setState({ trackers: newTrackers, isSaving: true });
-        this.handleSaveTracker();
+        this.handleSaveTrackerValue();
     }
 
-    handleSaveTracker = Debounce(async () => {
+    handleSaveTrackerValue = Debounce(async () => {
+        if (this._UNMOUNTED) { return; }
         const { trackers, date } = this.state;
         await TrackerAPI.updateTrackerValue(date, trackers)
         this.setState({ isSaving: false });
         //@todo handle saved notification
     }, 500);
 
-    // handleTrackerSave = () => {
+    handleAddTracker = async (trackerDetails) => {
+        const newTrackers = await TrackerAPI.createTracker(trackerDetails);
+        const trackers = TrackerAPI.getTrackerValuesFromTrackers(this.state.date, newTrackers);
+        this.setState({ trackers });
+    }
 
-    // }
+    handleDeleteTracker = async (name) => {
+        const newTrackers = await TrackerAPI.deleteTracker(name);
+        const trackers = TrackerAPI.getTrackerValuesFromTrackers(this.state.date, newTrackers);
+        this.setState({ trackers });
+    }
 
     render() {
         const { trackers, date, editorState, isLoading, isSaving } = this.state;
@@ -192,12 +201,13 @@ export default class Day extends React.Component {
                 </div> :
                 <>
                     <div className="notebook-body">
-                        <div className="notebook-tracker">
-                            {trackers.map(t => <Tracker
-                                tracker={t}
-                                key={t.name}
-                                handleChange={(value) => this.handleTrackerChange(t.name, value)}
-                            />)}
+                        <div className="notebook-tracker-container">
+                            <TrackerManager
+                                handleChangeTrackerValue={this.handleChangeTrackerValue}
+                                handleEditTrackerName={this.handleEditTrackerName}
+                                handleAddTracker={this.handleAddTracker}
+                                handleDeleteTracker={this.handleDeleteTracker}
+                                trackers={trackers} />
                         </div>
                         <div className="notebook-editor">
                             <div className='notes-toolbar'>
