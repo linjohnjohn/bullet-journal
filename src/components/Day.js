@@ -1,106 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import moment from 'moment';
-import Immutable, { List } from 'immutable'
-import { Editor, EditorBlock, ContentBlock, EditorState, genKey, RichUtils, DefaultDraftBlockRenderMap, convertToRaw, convertFromRaw, Modifier } from 'draft-js';
-import { IoIosArrowDropleftCircle, IoIosArrowDroprightCircle, IoIosCheckmark, IoIosClose, IoIosArrowForward } from 'react-icons/io';
+import { List } from 'immutable'
+import { Editor, ContentBlock, EditorState, genKey, RichUtils, convertToRaw, convertFromRaw, Modifier } from 'draft-js';
+import { IoIosArrowDropleftCircle, IoIosArrowDroprightCircle } from 'react-icons/io';
 import Debounce from 'awesome-debounce-promise';
 import 'draft-js/dist/Draft.css'
 
 import JournalEntryAPI from '../models/JournalEntryAPI';
 import TrackerManager from './TrackerManager';
+import { CustomLabel2 } from './CustomLabel';
 import './Day.css';
 import TrackerAPI from '../models/TrackerAPI';
-
-const CustomLabel = ({ type, children }) => {
-    const [isShowingOptions, setIsShowingOptions] = useState(false);
-    let text = 'Undefined';
-    switch (type) {
-        case 'task':
-            text = 'TASK';
-            break;
-        case 'note':
-            text = 'NOTE';
-            break;
-        case 'event':
-            text = 'EVENT'
-            break;
-        default:
-    }
-    return <div className="custom-section">
-        {children.map((child, i) => {
-            return <div key={i} className="custom-block">
-                {isShowingOptions ?
-                    <div className="tracker-edit-container" onMouseLeave={() => setIsShowingOptions(false)}>
-                        <IoIosCheckmark className="icon" />
-                        <IoIosClose className="icon" />
-                    </div> :
-                    <span contentEditable={false} className='custom-label' onMouseEnter={() => setIsShowingOptions(true)}>
-                        {text}
-                    </span>
-                }
-                {child}
-            </div>
-        })}
-    </div>
-}
-
-const CustomLabel2 = (props) => {
-    const { block, blockProps: { handleChangeBlockType, handleDeleteBlock, handleMigrateBlock } } = props;
-    const [type, modifier] = block.getType().split('-');
-    const [isShowingOptions, setIsShowingOptions] = useState(false);
-    let text = 'Undefined';
-    switch (type) {
-        case 'task':
-            text = 'TASK';
-            break;
-        case 'note':
-            text = 'NOTE';
-            break;
-        case 'event':
-            text = 'EVENT'
-            break;
-        default:
-    }
-    const isDone = modifier === 'done';
-    return <div className={`custom-block ${isDone && 'done'}`}>
-        {isShowingOptions ?
-            <div className="action-container" onMouseLeave={() => setIsShowingOptions(false)}>
-                <IoIosCheckmark className="icon" onClick={() => {
-                    if (isDone) {
-                        handleChangeBlockType(block.getKey(), `${type}`);
-                    } else {
-                        handleChangeBlockType(block.getKey(), `${type}-done`);
-                    }
-                    setIsShowingOptions(false);
-                }} />
-                <IoIosClose className="icon" onClick={() => {
-                    handleDeleteBlock(block.getKey());
-                }} />
-                <IoIosArrowForward className="icon icon-sm" onClick={() => {
-                    handleMigrateBlock(block.getKey());
-                }} />
-            </div> :
-            <button contentEditable={false} className='btn' onMouseEnter={() => setIsShowingOptions(true)}>
-                {text}
-            </button>
-        }
-        <EditorBlock {...props} />
-    </div>
-}
-
-// const blockRenderMap = Immutable.Map({
-//     'task': {
-//         wrapper: <CustomLabel type='task' />,
-//     },
-//     'note': {
-//         wrapper: <CustomLabel type='note' />
-//     },
-//     'event': {
-//         wrapper: <CustomLabel type='event' />
-//     }
-// });
-// const extendedBlockRenderMap = DefaultDraftBlockRenderMap.merge(blockRenderMap);
-
 
 const computeEditorState = (journalEntry) => {
     let editorState;
@@ -154,7 +64,7 @@ export default class Day extends React.Component {
             return {
                 component: CustomLabel2,
                 props: {
-                    handleChangeBlockType: this.handleChangeBlockType,
+                    handleChangeBlockType: this.handleMakeType,
                     handleDeleteBlock: this.handleDeleteBlock,
                     handleMigrateBlock: this.handleMigrateBlock
                 }
@@ -173,15 +83,7 @@ export default class Day extends React.Component {
         this.setState({ date, journalEntry, editorState, trackers, isLoading: false });
     }
 
-    handleChangeBlockType = async (blockKey, type) => {
-        // const { editorState } = this.state;
-        // const selectionState = SelectionState.createEmpty(blockKey);
-        // let newEditorState = EditorState.acceptSelection(editorState, selectionState);
-        // await this.setState({ editorState, newEditorState });
-        this.handleMakeType(type);
-    }
-
-    handleDeleteBlock = async (blockKey) => {
+    handleDeleteBlock = (blockKey) => {
         const { editorState } = this.state;
         const contentState = editorState.getCurrentContent();
         let newBlockMap = contentState.getBlockMap().delete(blockKey);
@@ -217,6 +119,7 @@ export default class Day extends React.Component {
         tmrwRawContentState.blocks.push(migrateBlock);
         const updatedTmrwEntry = { ...tmrwEntry, contentState: tmrwRawContentState};
         this.handleDeleteBlock(blockKey);
+        // @todo technically need fixing saving logic here
         await JournalEntryAPI.updateJournalEntry(date, updatedTmrwEntry);
     }
 
@@ -336,11 +239,9 @@ export default class Day extends React.Component {
                             </div>
                             <Editor
                                 editorState={editorState}
-                                // onTab={this.handleTab}
                                 onChange={this.handleChange}
                                 handleReturn={this.handleReturn}
                                 handleKeyCommand={this.handleKeyCommand}
-                                // blockRenderMap={extendedBlockRenderMap}
                                 blockRendererFn={this.blockRenderer}
                             />
                         </div>

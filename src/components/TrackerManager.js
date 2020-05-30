@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { IoMdSettings, IoIosAddCircle, IoIosCloseCircle, IoIosAddCircleOutline, IoIosCloseCircleOutline, IoIosSync, IoMdSync } from 'react-icons/io';
+import { IoMdSettings, IoIosAddCircle, IoIosCloseCircle, IoIosAddCircleOutline, IoIosCloseCircleOutline, IoMdSync } from 'react-icons/io';
 
 import Tracker from './Tracker';
 import Modal from './Modal';
