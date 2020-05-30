@@ -79,6 +79,9 @@ input.full-width {
   text-align: center;
 }
 
+.icon.icon-sm {
+  font-size: 1.5em;
+}
 
 .icon {
   margin: 0 0.25em;
