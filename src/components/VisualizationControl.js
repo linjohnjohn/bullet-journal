@@ -18,7 +18,17 @@ export default class VisualizationControl extends React.Component {
 
 
     async componentDidMount() {
-        const trackers = await TrackerAPI.getAllTrackers();
+        let trackers = [];
+        try {
+            trackers = await TrackerAPI.getAllTrackers();
+        } catch (error) {
+            document.dispatchEvent(new CustomEvent('custom-error', {
+                detail: {
+                    message: error.message,
+                    type: 'red'
+                }
+            }));
+        }
         this.setState({ trackers });
     }
 

@@ -37,6 +37,15 @@ const TrackerManager = ({
         </div>)
     }
 
+    const handleTestError = () => {
+        const e = new CustomEvent('custom-error', {
+            detail: {
+                message: 'test error'
+            }
+        });
+        document.dispatchEvent(e);
+    }
+
     return <>
         {trackerList}
         <div className='tracker-toolbar'>
@@ -55,7 +64,8 @@ const TrackerManager = ({
                 </> :
                 <>
                     <IoMdSettings onClick={() => {
-                        setIsEditMode(true);
+                        // setIsEditMode(true);
+                        handleTestError();
                     }} className='icon' />
                 </>
             }

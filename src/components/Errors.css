@@ -1,0 +1,38 @@
+.error-log {
+    z-index: 100;
+    position: fixed;
+    left: 50%;
+    top: 10%;
+    transform: translate(-50%, 0%);
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.error-log .error-item {
+    width: 100%;
+    padding: 0.5em;
+    border-radius: .5em;
+    opacity: .8;
+    background-color: yellow;
+    margin-bottom: 0.5em;
+    border: transparent solid 1px;
+}
+
+.error-log .error-item.green {
+    background-color: #CCFFC2;
+    color: #147A00;
+    border-color: #147A00;
+}
+
+.error-log .error-item.yellow {
+    background-color: #FCFF99;
+    color: #9EA300;
+    border-color: #9EA300;
+}
+
+.error-log .error-item.red {
+    background-color: #FF9999;
+    color: #A30000;
+    border-color: #A30000;
+}

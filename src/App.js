@@ -5,6 +5,7 @@ import firebase from 'firebase';
 
 import './models/firebase';
 import Home from './components/Notebook';
+import Errors from './components/Errors';
 import './App.css';
 import UserAPI from './models/UserAPI';
 
@@ -25,7 +26,7 @@ class App extends React.Component {
       }
     })
   }
-  
+
   handleGoogleLogin = () => {
     firebase.auth().signInWithPopup(provider).then((result) => {
       var token = result.credential.accessToken;
@@ -46,7 +47,7 @@ class App extends React.Component {
   render() {
     const { user } = this.state;
 
-    return <>
+    return <Errors>
       <div className="navbar">
         <h3>Mr. Bullet</h3>
         <div className="right-nav-section">
@@ -60,7 +61,11 @@ class App extends React.Component {
         <Router>
           <Switch>
             <Route exact={true} path='/login'>
-              {user ? <Redirect to='/' /> : <div></div>}
+              {user ? <Redirect to='/' /> : <div className='notebook'>
+                <div className="notebook-container centered-message">
+                  <p style={{ fontSize: '2em' }}>Welcome to Mr. Bullet. Please login to see your journal!</p>
+                </div>
+              </div>}
             </Route>
             <Route path='/'>
               <Home user={user} />
@@ -68,7 +73,7 @@ class App extends React.Component {
           </Switch>
         </Router>
       </div>
-    </>
+    </Errors>
   }
 }
 

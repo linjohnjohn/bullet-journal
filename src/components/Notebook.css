@@ -11,6 +11,10 @@
     height: 100%;
     flex-grow: 1;
     width: 80vw;
+
+    background-image: radial-gradient(var(--text-color) 0.04em, transparent 0.04em);
+    background-position: 0 0;
+    background-size: 2em 2em;
 }
 
 .notebook-labels {

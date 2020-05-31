@@ -48,8 +48,18 @@ export default class Day extends React.Component {
     async componentDidMount() {
         if (this._UNMOUNTED) { return; }
         const { date } = this.state;
-        const journalEntry = await JournalEntryAPI.getOrCreateJournalEntry(date);
-        const trackers = await TrackerAPI.getTrackerValues(date);
+        let journalEntry = {}, trackers = [];
+        try {
+            journalEntry = await JournalEntryAPI.getOrCreateJournalEntry(date);
+            trackers = await TrackerAPI.getTrackerValues(date);
+        } catch (error) {
+            document.dispatchEvent(new CustomEvent('custom-error', {
+                detail: {
+                    message: error.message,
+                    type: 'red'
+                }
+            }));
+        }
         const editorState = computeEditorState(journalEntry);
         this.setState({ journalEntry, editorState, trackers, isLoading: false });
     }
@@ -77,8 +87,18 @@ export default class Day extends React.Component {
         date = new Date(date.getTime());
         date.setDate(date.getDate() + i);
         this.setState({ isLoading: true });
-        const journalEntry = await JournalEntryAPI.getOrCreateJournalEntry(date);
-        const trackers = await TrackerAPI.getTrackerValues(date);
+        let journalEntry = {}, trackers = [];
+        try {
+            journalEntry = await JournalEntryAPI.getOrCreateJournalEntry(date);
+            trackers = await TrackerAPI.getTrackerValues(date);
+        } catch (error) {
+            document.dispatchEvent(new CustomEvent('custom-error', {
+                detail: {
+                    message: error.message,
+                    type: 'red'
+                }
+            }));
+        }
         const editorState = computeEditorState(journalEntry);
         this.setState({ date, journalEntry, editorState, trackers, isLoading: false });
     }
@@ -110,6 +130,8 @@ export default class Day extends React.Component {
         const rawContentState = convertToRaw(contentState);
         let migrateBlock = rawContentState.blocks.filter(b => b.key === blockKey)[0];
         migrateBlock = { ...migrateBlock, key: genKey() }
+        
+        // @todo error check
         const tmrwEntry = await JournalEntryAPI.getOrCreateJournalEntry(date);
 
         const tmrwRawContentState = tmrwEntry.contentState || {
@@ -133,7 +155,16 @@ export default class Day extends React.Component {
         const { editorState, journalEntry, date } = this.state;
         const contentState = convertToRaw(editorState.getCurrentContent());
         const updatedJournalEntry = { ...journalEntry, contentState };
-        await JournalEntryAPI.updateJournalEntry(date, updatedJournalEntry);
+        try {
+            await JournalEntryAPI.updateJournalEntry(date, updatedJournalEntry);
+        } catch (error) {
+            document.dispatchEvent(new CustomEvent('custom-error', {
+                detail: {
+                    message: error.message,
+                    type: 'red'
+                }
+            }));
+        }
         this.setState({ isSaving: false });
     }, 500);
 
@@ -185,19 +216,48 @@ export default class Day extends React.Component {
     handleSaveTrackerValue = Debounce(async () => {
         if (this._UNMOUNTED) { return; }
         const { trackers, date } = this.state;
-        await TrackerAPI.updateTrackerValue(date, trackers)
+        try {
+            await TrackerAPI.updateTrackerValue(date, trackers)
+        } catch (error) {
+            document.dispatchEvent(new CustomEvent('custom-error', {
+                detail: {
+                    message: error.message,
+                    type: 'red'
+                }
+            }));
+        }
+
         this.setState({ isSaving: false });
-        //@todo handle saved notification
     }, 500);
 
     handleAddTracker = async (trackerDetails) => {
-        const newTrackers = await TrackerAPI.createTracker(trackerDetails);
+        let newTrackers = [];
+        try {
+            newTrackers = await TrackerAPI.createTracker(trackerDetails);
+        } catch (error) {
+            document.dispatchEvent(new CustomEvent('custom-error', {
+                detail: {
+                    message: error.message,
+                    type: 'red'
+                }
+            }));
+        }
         const trackers = TrackerAPI.getTrackerValuesFromTrackers(this.state.date, newTrackers);
         this.setState({ trackers });
     }
 
     handleDeleteTracker = async (name) => {
-        const newTrackers = await TrackerAPI.deleteTracker(name);
+        let newTrackers = [];
+        try {
+            newTrackers = await TrackerAPI.deleteTracker(name);
+        } catch (error) {
+            document.dispatchEvent(new CustomEvent('custom-error', {
+                detail: {
+                    message: error.message,
+                    type: 'red'
+                }
+            }));
+        }
         const trackers = TrackerAPI.getTrackerValuesFromTrackers(this.state.date, newTrackers);
         this.setState({ trackers });
     }
