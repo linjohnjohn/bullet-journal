@@ -286,7 +286,6 @@ export default class Day extends React.Component {
                         <div className="notebook-tracker-container">
                             <TrackerManager
                                 handleChangeTrackerValue={this.handleChangeTrackerValue}
-                                handleEditTrackerName={this.handleEditTrackerName}
                                 handleAddTracker={this.handleAddTracker}
                                 handleDeleteTracker={this.handleDeleteTracker}
                                 trackers={trackers} />

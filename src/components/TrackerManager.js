@@ -9,7 +9,8 @@ import './TrackerManager.css'
 const TrackerManager = ({
     trackers,
     handleAddTracker,
-    handleDeleteTracker
+    handleDeleteTracker,
+    handleChangeTrackerValue
 }) => {
     const [isEditMode, setIsEditMode] = useState(false);
     const [isAddingTracker, setIsAddingTracker] = useState(false);
@@ -23,7 +24,7 @@ const TrackerManager = ({
         {trackers.map(t => <Tracker
             tracker={t}
             key={t.name}
-            handleChange={(value) => this.handleChangeTrackerValue(t.name, value)}
+            handleChange={(value) => handleChangeTrackerValue(t.name, value)}
         />)}
     </div>)
     if (isEditMode) {
@@ -31,19 +32,9 @@ const TrackerManager = ({
             {trackers.map(t => <EditTracker
                 tracker={t}
                 key={t.name}
-                handleEditTrackerName={(newName) => this.handleEditTrackerName(t.name, newName)}
                 handleDeleteTracker={() => handleDeleteTracker(t.name)}
             />)}
         </div>)
-    }
-
-    const handleTestError = () => {
-        const e = new CustomEvent('custom-error', {
-            detail: {
-                message: 'test error'
-            }
-        });
-        document.dispatchEvent(e);
     }
 
     return <>
@@ -64,8 +55,7 @@ const TrackerManager = ({
                 </> :
                 <>
                     <IoMdSettings onClick={() => {
-                        // setIsEditMode(true);
-                        handleTestError();
+                        setIsEditMode(true);
                     }} className='icon' />
                 </>
             }
