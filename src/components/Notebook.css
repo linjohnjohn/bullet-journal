@@ -103,7 +103,7 @@
     }
 
     .notebook-panel {
-        position: absolute;
+        position: fixed;
         border: none;
         width: 300px;
         height: 100%;
