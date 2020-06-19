@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { List } from 'immutable'
 import { Editor, ContentBlock, EditorState, genKey, RichUtils, convertToRaw, convertFromRaw, Modifier } from 'draft-js';
-import { IoIosArrowDropleftCircle, IoIosArrowDroprightCircle } from 'react-icons/io';
+import { IoIosArrowDropleftCircle, IoIosArrowDroprightCircle, IoIosMenu, IoIosClose } from 'react-icons/io';
 import Debounce from 'awesome-debounce-promise';
 import 'draft-js/dist/Draft.css'
 
@@ -37,6 +37,7 @@ export default class Day extends React.Component {
             trackers: [],
             isLoading: true,
             isSaving: false,
+            isTrackerPanelOpen: false
         }
 
         const { date } = props;
@@ -263,11 +264,15 @@ export default class Day extends React.Component {
     }
 
     render() {
-        const { trackers, date, editorState, isLoading, isSaving } = this.state;
+        const { trackers, date, editorState, isLoading, isSaving, isTrackerPanelOpen } = this.state;
         const readableDate = moment(date).format('MMMM D, YYYY');
 
         return <>
             <div className="notebook-header">
+                <IoIosMenu 
+                className='icon panel-toggle'
+                onClick={() => this.setState({ isTrackerPanelOpen: true })}
+                />
                 <IoIosArrowDropleftCircle
                     className='icon'
                     onClick={() => this.handleIncrementDate(-1)} />
@@ -283,7 +288,10 @@ export default class Day extends React.Component {
                 </div> :
                 <>
                     <div className="notebook-body">
-                        <div className="notebook-tracker-container">
+                        <div className={`notebook-panel ${isTrackerPanelOpen ? 'open' : ''}`}>
+                        <IoIosClose 
+                        className='icon panel-close'
+                        onClick={() => this.setState({ isTrackerPanelOpen: false })}/>
                             <TrackerManager
                                 handleChangeTrackerValue={this.handleChangeTrackerValue}
                                 handleAddTracker={this.handleAddTracker}

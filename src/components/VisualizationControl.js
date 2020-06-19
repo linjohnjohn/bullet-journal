@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { IoIosArrowDropleftCircle, IoIosArrowDroprightCircle } from 'react-icons/io';
+import { IoIosArrowDropleftCircle, IoIosArrowDroprightCircle, IoIosMenu, IoIosClose } from 'react-icons/io';
 
 import MonthlyHeatMap from './MonthlyHeatMap';
 import TrackerAPI from '../models/TrackerAPI';
@@ -13,7 +13,8 @@ export default class VisualizationControl extends React.Component {
         date: new Date(),
         selectedTrackerName: null,
         selectedTimePeriod: 'Month',
-        trackers: []
+        trackers: [],
+        isTrackerPanelOpen: false,
     }
 
 
@@ -35,7 +36,7 @@ export default class VisualizationControl extends React.Component {
     handleIncrementTimePeriod = (i) => {
         const { date, selectedTimePeriod } = this.state;
         let newDate = null;
-        if ( selectedTimePeriod === 'Month') {
+        if (selectedTimePeriod === 'Month') {
             newDate = new Date(date.getFullYear(), date.getMonth() + i);
         } else {
             newDate = new Date(date.getFullYear() + i, date.getMonth());
@@ -55,7 +56,7 @@ export default class VisualizationControl extends React.Component {
     }
 
     render() {
-        const { data, selectedTrackerName, selectedTimePeriod, date, trackers } = this.state;
+        const { data, selectedTrackerName, selectedTimePeriod, date, trackers, isTrackerPanelOpen } = this.state;
 
         let trackerMetadata = null;
         if (selectedTrackerName) {
@@ -71,6 +72,10 @@ export default class VisualizationControl extends React.Component {
 
         return <>
             <div className="notebook-header">
+                <IoIosMenu
+                    className='icon panel-toggle'
+                    onClick={() => this.setState({ isTrackerPanelOpen: true })}
+                />
                 <IoIosArrowDropleftCircle
                     className='icon'
                     onClick={() => this.handleIncrementTimePeriod(-1)} />
@@ -80,7 +85,10 @@ export default class VisualizationControl extends React.Component {
                     onClick={() => this.handleIncrementTimePeriod(1)} />
             </div>
             <div className="notebook-body">
-                <div className="viz-panel-control">
+                <div className={`notebook-panel ${isTrackerPanelOpen ? 'open' : ''}`}>
+                    <IoIosClose
+                        className='icon panel-close'
+                        onClick={() => this.setState({ isTrackerPanelOpen: false })} />
                     <p>Your Trackers</p>
                     <div className="centered-button-row">
                         {trackers.map((t, i) => {
@@ -105,10 +113,13 @@ export default class VisualizationControl extends React.Component {
                 </div>
                 <div className="viz-calendar">
                     {selectedTrackerName ?
-                        selectedTimePeriod === 'Month' ? 
+                        selectedTimePeriod === 'Month' ?
                             <MonthlyHeatMap data={data} date={date} trackerMetadata={trackerMetadata} /> :
                             <YearlyHeatMap data={data} date={date} trackerMetadata={trackerMetadata}></YearlyHeatMap> :
-                        <div className='centered-message'>
+                        <div 
+                        className='centered-message'
+                        onClick={() => this.setState({ isTrackerPanelOpen: true })}
+                        >
                             <p>Select a Tracker</p>
                         </div>
                     }

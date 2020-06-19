@@ -1,3 +1,20 @@
+
+.notebook-panel {
+    flex-basis: 250px;
+    border-right: 1px solid var(--border);
+    height: 100%;
+}
+
+.panel-toggle {
+    display: none;
+    position: absolute;
+}
+
+.panel-close {
+    display: none;
+    position: absolute;
+}        
+
 .notebook {
     margin-top: 4em;
     display: flex;
@@ -18,43 +35,33 @@
 }
 
 .notebook-labels {
-    /* position: absolute;
-    right: 0;
-    top: 0; */
-    width: 3em;
-    /* display: flex;
-    justify-content: space-between;
-    flex-direction: column; */
-    height: 100%;
+    width: 1em;
+    height: 2em;
+    transform-origin: bottom left;
+    transform: rotate(90deg);
+    display: flex;
 }
 
 .notebook-labels button {
-    /* padding: 0.5em 2em; */
     outline: none;
-    transform: rotate(90deg);
     background-color: var(--tab1);
     border: none;
-    width: 8em;
+    max-width: 10em;
+    padding: 0 2em;
     height: 2em;
     border-radius: 50% 50% 0 0;
     color: var(--text-color);
     font-size: 1em;
     transform-origin: bottom left;
-    transition: height 100ms;
+    transition: all 100ms;
+    bottom: 0;
+    position: relative;
 }
 
-.notebook-labels button + button {
-    margin-top: 6em;
-}
 
 .notebook-labels button:hover {
-    /* padding: 0.5em 2em; */
     height: 2.5em;
-}
-
-.notebook-labels button + button:hover {
-    height: 2.5em;
-    margin-top: 5.5em;
+    bottom: 0.5em;
 }
 
 .notebook-labels button:nth-child(4n+1) {
@@ -71,4 +78,44 @@
 
 .notebook-labels button:nth-child(4n+4) {
     background-color: var(--tab4);
+}
+
+
+@media only screen and (max-width: 720px) {
+    .notebook {
+        width: 90vw;
+    }
+
+    .notebook-container {
+        padding: 2em 1em;
+    }
+
+    .panel-toggle {
+        display: block;
+        left: 0;
+    }
+
+    .panel-close.icon {
+        display: block;
+        right: 0;
+        top: 0;
+        font-size: 3em;
+    }
+
+    .notebook-panel {
+        position: absolute;
+        border: none;
+        width: 300px;
+        height: 100%;
+        background-color: var(--panel-background);
+        left: -300px;
+        top: 0;
+        padding: 2em;
+        z-index: 100;
+        transition: left ease-in 150ms;
+    }
+
+    .notebook-panel.open {
+        left: 0
+    }
 }
