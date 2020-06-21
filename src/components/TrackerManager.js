@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IoMdSettings, IoIosAddCircle, IoIosCloseCircle, IoIosAddCircleOutline, IoIosCloseCircleOutline, IoMdSync } from 'react-icons/io';
 
 import Tracker from './Tracker';
@@ -6,39 +6,74 @@ import Modal from './Modal';
 import EditTracker from './EditTracker';
 import './TrackerManager.css'
 
+import Dnd from '../util/dnd';
+
+let globalDnd = null;
+
 const TrackerManager = ({
     trackers,
     handleAddTracker,
     handleDeleteTracker,
-    handleChangeTrackerValue
+    handleChangeTrackerValue,
+    handleSaveNewOrder
 }) => {
     const [isEditMode, setIsEditMode] = useState(false);
     const [isAddingTracker, setIsAddingTracker] = useState(false);
-    const [isAddingLoading, setIsAddingLoading] = useState(false);
+    const [isAddingLoading, setisAddingLoading] = useState(false);
+    const [trackerOrder, setTrackerOrder] = useState([]);
     const [newTrackerDetails, setNewTrackerDetails] = useState({
         name: '',
         type: null,
     });
 
-    let trackerList = (<div className="notebook-tracker">
+    useEffect(() => {
+        if (!globalDnd) {
+            const parent = document.querySelector('#edit-tracker-container');
+            const dnd = new Dnd(parent, handleDisplayNewOrder, handleSaveNewOrder);
+            globalDnd = dnd;
+        }
+
+    });
+
+    useEffect(() => {
+        const order = trackers.map(t => t.name);
+        setTrackerOrder(order);
+        if (globalDnd) {
+            globalDnd.dataArray = order;
+        }
+    }, [trackers])
+
+    const handleDisplayNewOrder = (order) => {
+        setTrackerOrder(order);
+    }
+
+    const trackerList = (<div className="notebook-tracker" hidden={isEditMode}>
         {trackers.map(t => <Tracker
             tracker={t}
             key={t.name}
             handleChange={(value) => handleChangeTrackerValue(t.name, value)}
         />)}
     </div>)
-    if (isEditMode) {
-        trackerList = (<div className="notebook-tracker">
-            {trackers.map(t => <EditTracker
+
+    const editTrackerList = (<div id="edit-tracker-container" className="notebook-tracker" hidden={!isEditMode}>
+        {trackerOrder.map(name => {
+            const t = trackers.filter(t => t.name === name)[0];
+            if (!t) {
+                return null;
+            }
+            return <EditTracker
                 tracker={t}
                 key={t.name}
-                handleDeleteTracker={() => handleDeleteTracker(t.name)}
-            />)}
-        </div>)
-    }
+                handleDeleteTracker={async () => {
+                    await handleDeleteTracker(t.name)
+                }} 
+            />
+        })}
+    </div>)
 
     return <>
         {trackerList}
+        {editTrackerList}
         <div className='tracker-toolbar'>
             {isEditMode ?
                 <>
@@ -135,9 +170,9 @@ const TrackerManager = ({
                         <IoMdSync className='icon icon-spinner' /> :
                         <>
                             <IoIosAddCircleOutline className='icon' onClick={async () => {
-                                setIsAddingLoading(true);
+                                setisAddingLoading(true);
                                 await handleAddTracker(newTrackerDetails);
-                                setIsAddingLoading(false);
+                                setisAddingLoading(false);
                                 setIsAddingTracker(false);
                             }} />
                             <IoIosCloseCircleOutline className='icon' onClick={() => setIsAddingTracker(false)} />

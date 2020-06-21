@@ -38,4 +38,5 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 0em;
+    transition: transform ease-in 100ms;
 }

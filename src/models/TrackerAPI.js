@@ -104,7 +104,7 @@ export default class TrackerAPI {
             const { trackers = [] } = data;
             const newTrackers = nameArray.map(name => {
                 const index = trackers.findIndex(t => t.name === name);
-                const t = trackers.splice(index, 1);
+                const t = trackers.splice(index, 1)[0];
                 return t;
             });
             newTrackers.push(...trackers);
@@ -112,6 +112,7 @@ export default class TrackerAPI {
             await db.collection('user').doc(user.uid).update({
                 trackers: newTrackers
             });
+            return newTrackers;
         } catch (error) {
             throw new Error('There was an issue updating your tracker order. Please try again');
         }

@@ -7,7 +7,7 @@ import Modal from './Modal';
 const Tracker = ({ tracker: { name }, handleEditTrackerName, handleDeleteTracker }) => {
     const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
     const [isDeletingLoading, setIsDeletingLoading] = useState(false);
-    return <div className='tracker-container tracker-edit-container'>
+    return  <div className='tracker-container tracker-edit-container' draggable data-dnd-id={name}>
         <div className='flex-row'>
             <IoIosMenu className="icon" />
             <div className='tracker-name'>{name}</div>

@@ -1,3 +1,14 @@
+.tracker-toolbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.dnd-dragging {
+    transform: rotate(5deg);
+    z-index: 100;
+}
+
 .icon-spinner {
     animation: spin 1s ease-in-out infinite;
 }

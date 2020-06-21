@@ -263,6 +263,22 @@ export default class Day extends React.Component {
         this.setState({ trackers });
     }
 
+    handleSaveNewTrackerOrder = async (orderByName) => {
+        let newTrackers = [];
+        try {
+            newTrackers = await TrackerAPI.updateTrackerOrder(orderByName);
+        } catch (error) {
+            document.dispatchEvent(new CustomEvent('custom-error', {
+                detail: {
+                    message: error.message,
+                    type: 'red'
+                }
+            }));
+        }
+        const trackers = TrackerAPI.getTrackerValuesFromTrackers(this.state.date, newTrackers);
+        this.setState({ trackers });
+    }
+
     render() {
         const { trackers, date, editorState, isLoading, isSaving, isTrackerPanelOpen } = this.state;
         const readableDate = moment(date).format('MMMM D, YYYY');
@@ -296,6 +312,7 @@ export default class Day extends React.Component {
                                 handleChangeTrackerValue={this.handleChangeTrackerValue}
                                 handleAddTracker={this.handleAddTracker}
                                 handleDeleteTracker={this.handleDeleteTracker}
+                                handleSaveNewOrder={this.handleSaveNewTrackerOrder}
                                 trackers={trackers} />
                         </div>
                         <div className="notebook-editor">
