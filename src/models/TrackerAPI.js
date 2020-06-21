@@ -163,7 +163,7 @@ export default class TrackerAPI {
                 type: t.type,
                 min: t.min,
                 max: t.max,
-                value: (t.values || {})[UTCDate.getTime()] || null
+                value: (t.values || {})[UTCDate.getTime()],
             }
         });
     }
