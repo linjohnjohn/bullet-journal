@@ -22,6 +22,20 @@ export default class TrackerAPI {
             const data = doc.data();
             const { trackers = [] } = data;
 
+            const someNameExists = newTracker.reduce((someNameExists, newT) => {
+                const currentNameExists = trackers.filter(t => t.name === newT.name).length > 0;
+                if (currentNameExists || someNameExists) {
+                    return true;
+                }
+                return false;
+            }, false);
+
+            if (someNameExists) {
+                const e = new Error('A tracker already exists with the provided name.');
+                e.name = 'TrackerAlreadyExists';
+                throw e;
+            }
+
             const newTrackers = [...trackers, ...newTracker];
 
             await db.collection('user').doc(user.uid).update({
@@ -29,6 +43,9 @@ export default class TrackerAPI {
             });
             return newTrackers;
         } catch (e) {
+            if (e.name === 'TrackerAlreadyExists') {
+                throw e;
+            }
             throw new Error('There was an issue creating a new tracker. Please try again');
         }
     }
@@ -73,6 +90,30 @@ export default class TrackerAPI {
             return trackers;
         } catch (error) {
             throw new Error('There was an issue deleting your tracker. Please try again');
+        }
+    }
+
+    static async updateTrackerOrder(nameArray) {
+        const user = firebase.auth().currentUser;
+        if (!user) {
+            throw new Error('You are not logged in!');
+        }
+        try {
+            const doc = await db.collection('user').doc(user.uid).get();
+            const data = doc.data();
+            const { trackers = [] } = data;
+            const newTrackers = nameArray.map(name => {
+                const index = trackers.findIndex(t => t.name === name);
+                const t = trackers.splice(index, 1);
+                return t;
+            });
+            newTrackers.push(...trackers);
+
+            await db.collection('user').doc(user.uid).update({
+                trackers: newTrackers
+            });
+        } catch (error) {
+            throw new Error('There was an issue updating your tracker order. Please try again');
         }
     }
 

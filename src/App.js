@@ -19,7 +19,16 @@ class App extends React.Component {
   componentDidMount() {
     firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
-        await UserAPI.initializeUser();
+        try {
+          await UserAPI.initializeUser();
+        } catch (error) {
+          document.dispatchEvent(new CustomEvent('custom-error', {
+            detail: {
+              message: error.message,
+              type: 'red'
+            }
+          }));
+        }
         this.setState({ user });
       } else {
         this.setState({ user: null });

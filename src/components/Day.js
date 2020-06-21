@@ -235,6 +235,8 @@ export default class Day extends React.Component {
         let newTrackers = [];
         try {
             newTrackers = await TrackerAPI.createTracker(trackerDetails);
+            const trackers = TrackerAPI.getTrackerValuesFromTrackers(this.state.date, newTrackers);
+            this.setState({ trackers });    
         } catch (error) {
             document.dispatchEvent(new CustomEvent('custom-error', {
                 detail: {
@@ -243,8 +245,6 @@ export default class Day extends React.Component {
                 }
             }));
         }
-        const trackers = TrackerAPI.getTrackerValuesFromTrackers(this.state.date, newTrackers);
-        this.setState({ trackers });
     }
 
     handleDeleteTracker = async (name) => {
