@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "bullet-journal-f849c"
+    "default": "bullet-journal-f849c",
+    "dev": "bullet-journal-dev"
   }
 }
