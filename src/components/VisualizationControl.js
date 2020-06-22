@@ -64,7 +64,7 @@ export default class VisualizationControl extends React.Component {
             trackerMetadata = { type, min, max, name }
         }
 
-        let readableDate = moment(date).format('MMMM YYYY');
+        let readableDate = moment(date).format('MMM YYYY');
 
         if (selectedTimePeriod === 'Year') {
             readableDate = moment(date).format('YYYY');

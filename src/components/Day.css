@@ -31,18 +31,23 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    max-height: 10%;
 }
 
 .notebook-body {
     display: flex;
     flex-direction: row;
-    height: 90%;  
+    height: 90%;
 }
 
 .notebook-footer {
     display: flex;
     flex-direction: row-reverse;
-    height: 10%;  
+    max-height: 0%;
+}
+
+.notebook-footer p{
+    margin-top: 0.5em;
 }
 
 .notebook-tracker {
@@ -55,6 +60,8 @@
     height: 100%;
     padding: 1em;
 
+    display: flex;
+    flex-direction: column;
 }
 
 .notes-toolbar {
@@ -65,32 +72,7 @@
     margin-bottom: 1em;
 }
 
-button.btn {
-    font-size: 1em;
-    padding: 0.25em 0.5em;
-    margin-right: 0.5em;
-    border-radius: 0.25em;
-    border: 1px solid var(--border);
-    
-    mix-blend-mode: multiply;
-    background-color: transparent;
-    color: var(--text-color);
-    transition: all 200ms;
-}
 
-button.btn.selected {
-    color: white;
-    background-color: var(--text-color);
-}
-
-button.btn:hover {
-    transform: scale(1.05);
-}
-
-button.btn:active {
-    color: white;
-    background-color: var(--text-color);
-}
 
 @media only screen and (max-width: 720px) {
     .notebook-tracker {

@@ -281,7 +281,7 @@ export default class Day extends React.Component {
 
     render() {
         const { trackers, date, editorState, isLoading, isSaving, isTrackerPanelOpen } = this.state;
-        const readableDate = moment(date).format('MMMM D, YYYY');
+        const readableDate = moment(date).format('MMM D, YYYY');
 
         return <>
             <div className="notebook-header">
