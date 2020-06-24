@@ -33,10 +33,18 @@ Next Step
 
 -d use different db for dev
 -d tracker name collision
+-d manage tracker order via dnd
 
-- tracker loader
+- change todo trigger  to on click 
+- android keyboard height dimesnion
+- custom label full width on phone
+- loading indication for migrate?
+
+- height consideration
 - tracker fields validation
-- manage tracker order via dnd
+
+- longer term notes area?
+- create your own notes sections
 
 - ? tasks, event note highlighting on toolbar
 - d3 gradients
