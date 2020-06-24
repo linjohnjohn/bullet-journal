@@ -1,3 +1,7 @@
+.DraftEditor-root {
+    overflow: auto;
+}
+
 .custom-block {
     display: flex;
     flex-direction: row;
@@ -19,7 +23,6 @@
     justify-content: space-between;
     margin-bottom: 0em;
 }
-
 
 .done {
     text-decoration: line-through;
@@ -70,6 +73,7 @@
     padding-bottom: 1em;
     border-bottom: 1px solid var(--border);
     margin-bottom: 1em;
+    flex-grow: 1;
 }
 
 
