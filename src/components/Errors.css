@@ -4,7 +4,8 @@
     left: 50%;
     top: 10%;
     transform: translate(-50%, 0%);
-    width: 500px;
+    width: 95vw;
+    max-width: 500px;
     display: flex;
     flex-direction: column;
 }

@@ -28,6 +28,7 @@
     height: 100%;
     flex-grow: 1;
     width: 80vw;
+    z-index: 1;
 
     background-image: radial-gradient(var(--text-color) 0.04em, transparent 0.04em);
     background-position: 0 0;
@@ -46,9 +47,12 @@
     outline: none;
     background-color: var(--tab1);
     border: none;
-    max-width: 10em;
+
+    margin-right: -1em;
+
+    margin-bottom: -0.5em;
     padding: 0 2em;
-    height: 2em;
+    height: 2.5em;
     border-radius: 50% 50% 0 0;
     color: var(--text-color);
     font-size: 1em;
@@ -58,9 +62,7 @@
     position: relative;
 }
 
-
 .notebook-labels button:hover {
-    height: 2.5em;
     bottom: 0.5em;
 }
 
@@ -84,10 +86,32 @@
 @media only screen and (max-width: 720px) {
     .notebook {
         width: 90vw;
+        flex-direction: column;
+        margin-top: 1em;
     }
 
     .notebook-container {
         padding: 2em 1em;
+        width: 100%;
+    }
+
+    .notebook-labels {
+        transform: rotate(0deg);
+        order: -1;
+        margin-left: 5%;
+        width: 90%;
+        display: flex;
+        flex-flow: row wrap;
+        height: auto;
+    }
+
+    .notebook-labels button {
+        min-width: 5em;
+        margin-right: 0em;
+        margin-bottom: -0.5em;
+        padding: 0 1em;
+        height: 3.5em;
+        border-radius: 30% 30% 0 0;
     }
 
     .panel-toggle {

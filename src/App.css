@@ -17,6 +17,10 @@ html {
   color: var(--text-color);
 }
 
+body {
+  min-height: 500px;
+}
+
 *, *:before, *:after {
   box-sizing: inherit;
   outline-color: var(--app-background);
@@ -90,6 +94,10 @@ input.full-width {
   transition: all 200ms;
 }
 
+.icon.icon-lg {
+  font-size: 3em;
+}
+
 .icon:hover {
   transform: scale(1.25);
 }
@@ -131,9 +139,13 @@ button.btn:active {
     font-size: 3em;
   }
 
+  .icon.icon-lg {
+    font-size: 4em;
+  }
+
   button.btn {
-    font-size: 1em;
-    padding: 0.5em 0.5em;
+    font-size: 1.25em;
+    padding: 0.75em 0.5em;
   }
 }
 

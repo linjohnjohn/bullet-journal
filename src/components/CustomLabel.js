@@ -23,7 +23,7 @@ export const CustomLabel2 = (props) => {
     return <div className={`custom-block ${isDone && 'done'}`}>
         {isShowingOptions ?
             <div className="action-container" onMouseLeave={() => setIsShowingOptions(false)}>
-                <IoIosCheckmark className="icon" onClick={() => {
+                <IoIosCheckmark className="icon icon-lg" onClick={() => {
                     if (isDone) {
                         handleChangeBlockType(`${type}`);
                     } else {
@@ -31,10 +31,10 @@ export const CustomLabel2 = (props) => {
                     }
                     setIsShowingOptions(false);
                 }} />
-                <IoIosClose className="icon" onClick={() => {
+                <IoIosClose className="icon icon-lg" onClick={() => {
                     handleDeleteBlock(block.getKey());
                 }} />
-                <IoIosArrowForward className="icon icon-sm" onClick={() => {
+                <IoIosArrowForward className="icon" onClick={() => {
                     handleMigrateBlock(block.getKey());
                 }} />
             </div> :
