@@ -22,7 +22,7 @@ export const CustomLabel2 = (props) => {
     const isDone = modifier === 'done';
     return <div className={`custom-block ${isDone && 'done'}`}>
         {isShowingOptions ?
-            <div className="action-container" onMouseLeave={() => setIsShowingOptions(false)}>
+            <div className="action-container">
                 <IoIosCheckmark className="icon icon-lg" onClick={() => {
                     if (isDone) {
                         handleChangeBlockType(`${type}`);
@@ -38,7 +38,15 @@ export const CustomLabel2 = (props) => {
                     handleMigrateBlock(block.getKey());
                 }} />
             </div> :
-            <button contentEditable={false} className='btn' onMouseEnter={() => setIsShowingOptions(true)}>
+            <button contentEditable={false} className='btn' onClick={() => {
+                setIsShowingOptions(true)
+                
+                const cancelHandler = (e) => {
+                    setIsShowingOptions(false);
+                    document.removeEventListener('click', cancelHandler);
+                };
+                document.addEventListener('click', cancelHandler);
+            }}>
                 {text}
             </button>
         }

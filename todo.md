@@ -35,12 +35,13 @@ Next Step
 -d tracker name collision
 -d manage tracker order via dnd
 
-- change todo trigger  to on click 
-- android keyboard height dimesnion
+-d android keyboard height dimesnion
+- height consideration
+
 - custom label full width on phone
+- change todo trigger  to on click 
 - loading indication for migrate?
 
-- height consideration
 - tracker fields validation
 
 - longer term notes area?
