@@ -5,6 +5,7 @@ import firebase from 'firebase';
 
 import './models/firebase';
 import Home from './components/Notebook';
+import Navbar from './components/Navbar';
 import Errors from './components/Errors';
 import './App.css';
 import UserAPI from './models/UserAPI';
@@ -13,7 +14,7 @@ const provider = new firebase.auth.GoogleAuthProvider();
 
 class App extends React.Component {
   state = {
-    user: null
+    user: null,
   }
 
   componentDidMount() {
@@ -57,15 +58,11 @@ class App extends React.Component {
     const { user } = this.state;
 
     return <Errors>
-      <div className="navbar">
-        <h3>Mr. Bullet</h3>
-        <div className="right-nav-section">
-          {user ?
-            <button className="btn" onClick={this.handleGoogleLogout}>Logout</button> :
-            <button className="btn" onClick={this.handleGoogleLogin}>Google Login</button>
-          }
-        </div>
-      </div>
+      <Navbar
+        user={user}
+        handleGoogleLogin={this.handleGoogleLogin}
+        handleGoogleLogout={this.handleGoogleLogout}
+      />
       <div className="journal-body">
         <Router>
           <Switch>

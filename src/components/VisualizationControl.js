@@ -85,6 +85,12 @@ export default class VisualizationControl extends React.Component {
                     onClick={() => this.handleIncrementTimePeriod(1)} />
             </div>
             <div className="notebook-body">
+                <div
+                    className={`backdrop-overlay ${isTrackerPanelOpen ? 'open' : ''}`}
+                    onClick={() => {
+                        this.setState({ isTrackerPanelOpen: false });
+                    }}>
+                </div>
                 <div className={`notebook-panel ${isTrackerPanelOpen ? 'open' : ''}`}>
                     <IoIosClose
                         className='icon panel-close'
@@ -116,9 +122,9 @@ export default class VisualizationControl extends React.Component {
                         selectedTimePeriod === 'Month' ?
                             <MonthlyHeatMap data={data} date={date} trackerMetadata={trackerMetadata} /> :
                             <YearlyHeatMap data={data} date={date} trackerMetadata={trackerMetadata}></YearlyHeatMap> :
-                        <div 
-                        className='centered-message'
-                        onClick={() => this.setState({ isTrackerPanelOpen: true })}
+                        <div
+                            className='centered-message'
+                            onClick={() => this.setState({ isTrackerPanelOpen: true })}
                         >
                             <p>Select a Tracker</p>
                         </div>

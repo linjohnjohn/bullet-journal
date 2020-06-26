@@ -36,10 +36,15 @@ Next Step
 -d manage tracker order via dnd
 
 -d android keyboard height dimesnion
+- offline support
+
 - height consideration
 
 - custom label full width on phone
-- change todo trigger  to on click 
+- settings page
+- color integration
+- commit changes
+-d change todo trigger to on click 
 - loading indication for migrate?
 
 - tracker fields validation

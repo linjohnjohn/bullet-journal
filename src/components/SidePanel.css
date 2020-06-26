@@ -1,0 +1,33 @@
+.side-panel {
+    position: fixed;
+    height: 100%;
+    width: 300px;
+    top: 0;
+    left: -300px;
+    background-color: var(--panel-background);
+
+    z-index: 1000;
+    padding: 1em;
+    transition: left 200ms ease-in;
+}
+
+.side-panel-overlay {
+    position: fixed;
+    height: 100%;
+    width: 100vw;
+    top: 0;
+    left: -100vw;
+    background-color: black;
+    opacity: 0.2;
+    /* transition: all 200ms ease-in; */
+
+    z-index: 999;
+}
+
+.side-panel.open {
+    left: 0;
+}
+
+.side-panel-overlay.open {
+    left: 0;
+}

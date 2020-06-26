@@ -131,7 +131,7 @@ export default class Day extends React.Component {
         const rawContentState = convertToRaw(contentState);
         let migrateBlock = rawContentState.blocks.filter(b => b.key === blockKey)[0];
         migrateBlock = { ...migrateBlock, key: genKey() }
-        
+
         // @todo error check
         const tmrwEntry = await JournalEntryAPI.getOrCreateJournalEntry(date);
 
@@ -140,7 +140,7 @@ export default class Day extends React.Component {
             entityMap: {}
         };
         tmrwRawContentState.blocks.push(migrateBlock);
-        const updatedTmrwEntry = { ...tmrwEntry, contentState: tmrwRawContentState};
+        const updatedTmrwEntry = { ...tmrwEntry, contentState: tmrwRawContentState };
         this.handleDeleteBlock(blockKey);
         // @todo technically need fixing saving logic here
         await JournalEntryAPI.updateJournalEntry(date, updatedTmrwEntry);
@@ -236,7 +236,7 @@ export default class Day extends React.Component {
         try {
             newTrackers = await TrackerAPI.createTracker(trackerDetails);
             const trackers = TrackerAPI.getTrackerValuesFromTrackers(this.state.date, newTrackers);
-            this.setState({ trackers });    
+            this.setState({ trackers });
         } catch (error) {
             document.dispatchEvent(new CustomEvent('custom-error', {
                 detail: {
@@ -285,9 +285,9 @@ export default class Day extends React.Component {
 
         return <>
             <div className="notebook-header">
-                <IoIosMenu 
-                className='icon panel-toggle'
-                onClick={() => this.setState({ isTrackerPanelOpen: true })}
+                <IoIosMenu
+                    className='icon panel-toggle'
+                    onClick={() => this.setState({ isTrackerPanelOpen: true })}
                 />
                 <IoIosArrowDropleftCircle
                     className='icon'
@@ -304,10 +304,16 @@ export default class Day extends React.Component {
                 </div> :
                 <>
                     <div className="notebook-body">
+                        <div
+                            className={`backdrop-overlay ${isTrackerPanelOpen ? 'open' : ''}`}
+                            onClick={() => {
+                                this.setState({ isTrackerPanelOpen: false });
+                            }}>
+                        </div>
                         <div className={`notebook-panel ${isTrackerPanelOpen ? 'open' : ''}`}>
-                        <IoIosClose 
-                        className='icon panel-close'
-                        onClick={() => this.setState({ isTrackerPanelOpen: false })}/>
+                            <IoIosClose
+                                className='icon panel-close'
+                                onClick={() => this.setState({ isTrackerPanelOpen: false })} />
                             <TrackerManager
                                 handleChangeTrackerValue={this.handleChangeTrackerValue}
                                 handleAddTracker={this.handleAddTracker}

@@ -1,17 +1,26 @@
 html {
-  --notebook-background: #FFF1D5;
-  --panel-background: #FFEBC2;
-  --app-background: #FFCDB2;
-  --tab1: #FFC1AA;
-  --tab2: #FFB4A2;
-  --tab3: #F2A69F;
-  --tab4: #E5989B;
-  --border: #6D6875;
-  --hover: #FFC1AA;
-  --spare-color: #917681;
-  --spare-color2: #B5838D;
-  --text-color: #6D6875;
-  --calendar-dull-box: #6D687599;
+  /* pink */
+  --hue0: 40;
+  --hue1: 20;
+  --hue2: 10;
+  --hue3: 0;
+  --hue4: 350;
+
+
+  --notebook-background: hsl(var(--hue0), 77%, 95%);
+  --panel-background: hsl(var(--hue0), 89%, 93%);
+  --app-background: hsl(var(--hue1), 100%, 90%);
+  --tab1: hsl(var(--hue1), 100%, 83%);
+  --tab2: hsl(var(--hue2), 100%, 82%);
+  --tab3: hsl(var(--hue2), 85%, 77%);;
+  --tab4: hsl(var(--hue3), 80%, 77%);;
+  --border: hsl(var(--hue4), 6%, 43%);
+  --hover: hsl(var(--hue1), 100%, 83%);
+  --spare-color: hsl(var(--hue4), 10%, 50%);;
+  --spare-color2: hsl(var(--hue4), 25%, 60%);;
+  --text-color: hsl(var(--hue4), 6%, 43%);
+  --text-color-opaque: hsla(var(--hue4), 6%, 43%, 0.3);
+  --calendar-dull-box: hsla(var(--hue4), 6%, 43%, 0.8);
   box-sizing: border-box;
   background-color: var(--app-background);
   color: var(--text-color);
@@ -34,10 +43,35 @@ body {
   height: 10vh;
 }
 
+
+
+.nav-panel p {
+  padding: 1em;
+  font-size: 1.5em;
+  border-bottom: 1px var(--text-color-opaque) solid;
+  margin: 0;
+}
+
 .journal-body {
   display: flex;
   justify-content: center;
   height: 90vh;
+}
+
+.backdrop-overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--text-color);
+  opacity: .6;
+  z-index: 10;
+  visibility: hidden;
+}
+
+.backdrop-overlay.open {
+  visibility: visible;
 }
 
 .centered-message {
@@ -113,23 +147,26 @@ button.btn {
   margin-right: 0.5em;
   border-radius: 0.25em;
   border: 1px solid var(--border);
-  
+}
+
+.btn {
+  border-radius: 0.25em;
+  transition: all 200ms;
   mix-blend-mode: multiply;
   background-color: transparent;
   color: var(--text-color);
-  transition: all 200ms;
 }
 
-button.btn.selected {
+.btn.selected {
   color: white;
   background-color: var(--text-color);
 }
 
-button.btn:hover {
+.btn:hover {
   transform: scale(1.05);
 }
 
-button.btn:active {
+.btn:active {
   color: white;
   background-color: var(--text-color);
 }
