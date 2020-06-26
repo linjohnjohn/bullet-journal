@@ -1,6 +1,6 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
-
 
 import SidePanel from './SidePanel';
 
@@ -19,7 +19,7 @@ class Navbar extends React.Component {
                 {user ?
                     <Avatar className='icon' onClick={() => {
                         this.setState({ isNavPanelOpen: true });
-                    }}>{user.displayName.charAt(0)}</Avatar> :
+                    }}>{user.displayName.length > 0 ? user.displayName.charAt(0) : 'A'}</Avatar> :
                     <button className="btn" onClick={handleGoogleLogin}>Google Login</button>
                 }
             </div>
@@ -28,10 +28,12 @@ class Navbar extends React.Component {
                 this.setState({ isNavPanelOpen: false });
             }}>
                 <div className="nav-panel">
-                    <p className='btn'>Settings</p>
+                    <p className='btn' onClick={(e) => {
+                        this.props.history.push('/settings')
+                        this.setState({ isNavPanelOpen: false })
+                    }}>Settings</p>
                     <p className='btn' onClick={() => {
                         handleGoogleLogout();
-                        this.setState({ isNavPanelOpen: false })
                     }}>Logout</p>
                 </div>
             </SidePanel>
@@ -39,4 +41,4 @@ class Navbar extends React.Component {
     }
 }
 
-export default Navbar;
+export default withRouter(Navbar);

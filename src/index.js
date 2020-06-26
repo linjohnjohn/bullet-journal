@@ -18,11 +18,11 @@ window.addEventListener('resize', () => {
   if (window.innerHeight > initialHeight) {
     initialHeight = window.innerHeight;
   }
-  
+
   document.documentElement.style.setProperty('overflow', 'auto')
   const metaViewport = document.querySelector('meta[name=viewport]')
   metaViewport.setAttribute('content', `height= ${initialHeight}px, width=device-width, initial-scale=1.0`)
-})
+});
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

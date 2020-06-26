@@ -4,6 +4,7 @@ import firebase from 'firebase';
 
 
 import './models/firebase';
+import { setColorTheme } from './util/colors';
 import Home from './components/Notebook';
 import Navbar from './components/Navbar';
 import Errors from './components/Errors';
@@ -22,6 +23,9 @@ class App extends React.Component {
       if (user) {
         try {
           await UserAPI.initializeUser();
+          const theme = await UserAPI.getColorTheme();
+          setColorTheme(theme);
+          window.setColorTheme = setColorTheme;
         } catch (error) {
           document.dispatchEvent(new CustomEvent('custom-error', {
             detail: {
@@ -58,13 +62,13 @@ class App extends React.Component {
     const { user } = this.state;
 
     return <Errors>
-      <Navbar
-        user={user}
-        handleGoogleLogin={this.handleGoogleLogin}
-        handleGoogleLogout={this.handleGoogleLogout}
-      />
-      <div className="journal-body">
-        <Router>
+      <Router>
+        <Navbar
+          user={user}
+          handleGoogleLogin={this.handleGoogleLogin}
+          handleGoogleLogout={this.handleGoogleLogout}
+        />
+        <div className="journal-body">
           <Switch>
             <Route exact={true} path='/login'>
               {user ? <Redirect to='/' /> : <div className='notebook'>
@@ -77,8 +81,8 @@ class App extends React.Component {
               <Home user={user} />
             </Route>
           </Switch>
-        </Router>
-      </div>
+        </div>
+      </Router>
     </Errors>
   }
 }

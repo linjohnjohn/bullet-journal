@@ -3,6 +3,7 @@ import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import Day from './Day';
 import './Notebook.css';
 import VisualizationControl from './VisualizationControl';
+import Settings from './Settings';
 
 
 class Notebook extends React.Component {
@@ -18,6 +19,7 @@ class Notebook extends React.Component {
             <div className='notebook-container'>
                 <Switch>
                     <Route exact={true} path='/visualization' component={VisualizationControl} />
+                    <Route exact={true} path='/settings' component={Settings} />
                     <Route path='/' render={(props) => {
                         const { date = new Date() } = props.location.state || {}
                         return <Day key={date} date={date} />

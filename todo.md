@@ -40,11 +40,14 @@ Next Step
 
 - height consideration
 
-- custom label full width on phone
-- settings page
-- color integration
-- commit changes
 -d change todo trigger to on click 
+-d color integration
+-d settings page
+
+- staging server
+
+- custom label full width on phone
+
 - loading indication for migrate?
 
 - tracker fields validation
