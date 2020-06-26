@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^7.1.2",
     "awesome-debounce-promise": "^2.1.0",
     "d3": "^5.16.0",
+    "dotenv-cli": "^3.2.0",
     "draft-js": "^0.11.5",
     "firebase": "7.14.3",
     "firebase-tools": "^8.4.1",
@@ -24,7 +25,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "dotenv -e .env.production react-scripts build",
+    "build-dev": "dotenv -e .env.development react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -42,5 +44,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {}
 }
