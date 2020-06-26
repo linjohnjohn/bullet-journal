@@ -43,8 +43,8 @@ Next Step
 -d change todo trigger to on click 
 -d color integration
 -d settings page
+-d staging server
 
-- staging server
 
 - custom label full width on phone
 
