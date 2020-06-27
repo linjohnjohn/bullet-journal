@@ -138,6 +138,11 @@ export default class TrackerAPI {
             if (tracker.values === undefined || tracker.values === null) {
                 tracker.values = {}
             }
+
+            if (value === undefined) {
+                value = null;
+            }
+
             tracker.values[UTCDate.getTime()] = value;
         });
 
