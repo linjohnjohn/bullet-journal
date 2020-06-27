@@ -2,11 +2,11 @@
     overflow: auto;
 }
 
-.custom-block {
+.custom-block  {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 1em;
+    padding: 0.5em 0;
 }
 
 .custom-label {
