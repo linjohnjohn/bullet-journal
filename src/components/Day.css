@@ -5,11 +5,13 @@
 .custom-block  {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     padding: 0.5em 0;
+    overflow: hidden;
 }
 
 .custom-label {
+    align-self: center;
     border-radius: 0.25em;
     margin-right: 0.5em;
     padding: 0.25em 0.5em;
@@ -17,6 +19,7 @@
 }
 
 .custom-block .action-container {
+    align-self: center;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -62,6 +65,7 @@
     flex-grow: 1;
     flex-basis: 0px;
     height: 100%;
+    width: 100%;
     padding: 1em;
 
     display: flex;
