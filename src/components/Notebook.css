@@ -16,7 +16,7 @@
 }        
 
 .notebook {
-    margin-top: 4em;
+    padding-top: 4em;
     display: flex;
     width: 85vw;
     height: 100%;
@@ -89,7 +89,7 @@
     .notebook {
         width: 90vw;
         flex-direction: column;
-        margin-top: 1em;
+        padding-top: 1em;
     }
 
     .notebook-container {
