@@ -43,7 +43,7 @@ export default class MonthJournalEntryAPI {
         } catch (e) {
             throw new Error('There is an issue updating this journal entry. Please try again later!');
         }
-        return true; //@todo catch errors
+        return true;
 
     }
 }

@@ -47,7 +47,6 @@ export default class Day extends React.Component {
         const { date } = this.state;
         let journalEntry = {};
         try {
-            // @todo
             journalEntry = await MonthJournalEntryAPI.getOrCreateJournalEntry(date);
         } catch (error) {
             document.dispatchEvent(new CustomEvent('custom-error', {
@@ -86,7 +85,6 @@ export default class Day extends React.Component {
         this.setState({ isLoading: true });
         let journalEntry = {};
         try {
-            // @todo
             journalEntry = await MonthJournalEntryAPI.getOrCreateJournalEntry(date);
         } catch (error) {
             document.dispatchEvent(new CustomEvent('custom-error', {
@@ -128,18 +126,25 @@ export default class Day extends React.Component {
         let migrateBlock = rawContentState.blocks.filter(b => b.key === blockKey)[0];
         migrateBlock = { ...migrateBlock, key: genKey() }
 
-        // @todo error check
-        const tmrwEntry = await MonthJournalEntryAPI.getOrCreateJournalEntry(date);
+        try {
+            const tmrwEntry = await MonthJournalEntryAPI.getOrCreateJournalEntry(date);
 
-        const tmrwRawContentState = tmrwEntry.contentState || {
-            blocks: [],
-            entityMap: {}
-        };
-        tmrwRawContentState.blocks.push(migrateBlock);
-        const updatedTmrwEntry = { ...tmrwEntry, contentState: tmrwRawContentState };
-        this.handleDeleteBlock(blockKey);
-        // @todo technically need fixing saving logic here
-        await MonthJournalEntryAPI.updateJournalEntry(date, updatedTmrwEntry);
+            const tmrwRawContentState = tmrwEntry.contentState || {
+                blocks: [],
+                entityMap: {}
+            };
+            tmrwRawContentState.blocks.push(migrateBlock);
+            const updatedTmrwEntry = { ...tmrwEntry, contentState: tmrwRawContentState };
+            this.handleDeleteBlock(blockKey);
+            await MonthJournalEntryAPI.updateJournalEntry(date, updatedTmrwEntry);
+        } catch (error) {
+            document.dispatchEvent(new CustomEvent('custom-error', {
+                detail: {
+                    message: 'Unable to migrate, try again!',
+                    type: 'red'
+                }
+            }));
+        }
     }
 
     handleChange = (editorState) => {
@@ -153,7 +158,6 @@ export default class Day extends React.Component {
         const contentState = convertToRaw(editorState.getCurrentContent());
         const updatedJournalEntry = { ...journalEntry, contentState };
         try {
-            // @todo
             await MonthJournalEntryAPI.updateJournalEntry(date, updatedJournalEntry);
         } catch (error) {
             document.dispatchEvent(new CustomEvent('custom-error', {

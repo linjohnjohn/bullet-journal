@@ -12,7 +12,6 @@ Tracker
 */
 export default class TrackerAPI {
     static async createTracker(...newTracker) {
-        // @todo check trackers for dups; maybe switch to using keys
         const user = firebase.auth().currentUser;
         if (!user) {
             throw new Error('You are not logged in!');
