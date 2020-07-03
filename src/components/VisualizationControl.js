@@ -46,8 +46,11 @@ export default class VisualizationControl extends React.Component {
 
     handleChangeTrackerName = (name) => {
         const { trackers } = this.state;
-        // @todo error handle for empty filter
-        const data = trackers.filter(t => t.name === name)[0].values || {};
+        const selectedTracker = trackers.filter(t => t.name === name)[0]
+        let data = {};
+        if (selectedTracker) {
+            data = selectedTracker.values || {};
+        }
         this.setState({ selectedTrackerName: name, data })
     }
 
