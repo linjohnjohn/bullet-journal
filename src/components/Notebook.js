@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import Day from './Day';
+import LongTerm from './LongTerm';
 import './Notebook.css';
 import VisualizationControl from './VisualizationControl';
 import Settings from './Settings';
@@ -19,7 +20,11 @@ class Notebook extends React.Component {
             <div className='notebook-container'>
                 <Switch>
                     <Route exact={true} path='/visualization' component={VisualizationControl} />
-                    <Route exact={true} path='/settings' component={Settings} />
+                    <Route exact={true} path='/colors' component={Settings} />
+                    <Route exact={true} path='/month' render={(props) => {
+                        const { date = new Date() } = props.location.state || {}
+                        return <LongTerm key={date} date={date} />
+                    }} />
                     <Route path='/' render={(props) => {
                         const { date = new Date() } = props.location.state || {}
                         return <Day key={date} date={date} />
@@ -33,7 +38,7 @@ class Notebook extends React.Component {
                     d.setDate(d.getDate() + 1);
                     this.props.history.push({ pathname: '/', state: { date: d } })
                 }}>Tomorrow</button>
-                <button onClick={(e) => { this.props.history.push('/visualization') }}>Tracker</button>
+                <button onClick={(e) => { this.props.history.push('/month') }}>Month</button>
             </div>
         </div>
     }

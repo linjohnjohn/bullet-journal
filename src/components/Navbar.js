@@ -28,13 +28,21 @@ class Navbar extends React.Component {
                 this.setState({ isNavPanelOpen: false });
             }}>
                 <div className="nav-panel">
-                    <p className='btn' onClick={(e) => {
-                        this.props.history.push('/settings')
-                        this.setState({ isNavPanelOpen: false })
-                    }}>Settings</p>
-                    <p className='btn' onClick={() => {
-                        handleGoogleLogout();
-                    }}>Logout</p>
+                    <div>
+                        <p className='btn' onClick={(e) => {
+                            this.props.history.push('/visualization')
+                            this.setState({ isNavPanelOpen: false })
+                        }}>Tracker</p>
+                    </div>
+                    <div>
+                        <p className='btn' onClick={(e) => {
+                            this.props.history.push('/colors')
+                            this.setState({ isNavPanelOpen: false })
+                        }}>Colors</p>
+                        <p className='btn' onClick={() => {
+                            handleGoogleLogout();
+                        }}>Logout</p>
+                    </div>
                 </div>
             </SidePanel>
         </div>

@@ -4,3 +4,9 @@ export function convertDateToUTC(date) {
     const year = date.getFullYear();
     return new Date(Date.UTC(year, month, dateOfMonth));
 }
+
+export function convertDateToUTCMonth(date) {
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    return new Date(Date.UTC(year, month));
+}

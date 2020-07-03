@@ -43,12 +43,22 @@ body {
   height: 10vh;
 }
 
+.nav-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
+/* .nav-panel p:first-child {
+  border-top: 1px var(--text-color-opaque) solid;
+} */
 
 .nav-panel p {
   padding: 1em;
   font-size: 1.5em;
   border-bottom: 1px var(--text-color-opaque) solid;
+  border-radius: 0;
   margin: 0;
 }
 

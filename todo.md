@@ -46,14 +46,14 @@ Next Step
 -d staging server
 
 
-- custom label full width on phone
+-d custom label full width on phone
 
-- loading indication for migrate?
+
 
 - tracker fields validation
 
-- longer term notes area?
-- create your own notes sections
+-d monthly/yearly
+
 
 - ? tasks, event note highlighting on toolbar
 - d3 gradients
