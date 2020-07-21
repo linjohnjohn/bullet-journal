@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IoIosCheckmark, IoIosClose, IoIosArrowForward } from 'react-icons/io';
+import { BsCircle, BsCircleFill, BsDash } from 'react-icons/bs';
 import { EditorBlock } from 'draft-js';
 import { useRef } from 'react';
+
+let _UNMOUNTED = false;
 
 export const CustomLabel2 = (props) => {
     const blockNode = useRef(null);
@@ -9,16 +12,79 @@ export const CustomLabel2 = (props) => {
     const [type, modifier] = block.getType().split('-');
     const [isShowingOptions, setIsShowingOptions] = useState(false);
     const [defaultHeight, setDefaultHeight] = useState(null);
+
+    const handleChangeToShowingOptions = (e) => {
+        e.stopPropagation();
+        blockNode.current.style.transform=`translate(0, 0)`
+        setIsShowingOptions(true)
+        const height = blockNode.current.clientHeight;
+        setDefaultHeight(height);
+        const cancelHandler = (e) => {
+            if (_UNMOUNTED) {return;}
+            e.stopPropagation();
+            setDefaultHeight(null);
+            setIsShowingOptions(false);
+            document.removeEventListener('click', cancelHandler);
+            document.removeEventListener('touchstart', cancelHandler);
+        };
+        document.addEventListener('click', cancelHandler);
+        document.addEventListener('touchstart', cancelHandler);
+    }
+
+    const handleMarkDone = (e) => {
+        e.stopPropagation();
+        if (isDone) {
+            handleChangeBlockType(`${type}`);
+        } else {
+            handleChangeBlockType(`${type}-done`);
+        }
+        setIsShowingOptions(false);
+    }
+
+    const handleDelete = (e) => {
+        e.stopPropagation();
+        handleDeleteBlock(block.getKey());
+    }
+
+    const handleMigrate = (e) => {
+        e.stopPropagation();
+        handleMigrateBlock(block.getKey());
+    }
+
+    useEffect(() => {
+        const swiper = new Swipe(blockNode.current);
+        swiper.onRightTransition = (xDiff) => {
+            blockNode.current.style.transform=`translate(${xDiff}px, 0)`
+        };
+
+        swiper.onResetTransition = () => {
+            if (blockNode.current) {
+                blockNode.current.style.transform=`translate(0, 0)`
+            }
+        }
+        swiper.onRight = handleChangeToShowingOptions;
+        swiper.run();
+
+        return function cleanup() {
+            swiper.remove();
+            _UNMOUNTED = true;
+        }
+    }, []);
+
     let text = 'Undefined';
+    let Symbol = BsCircleFill;
     switch (type) {
         case 'task':
             text = 'TASK';
+            Symbol = BsCircleFill;
             break;
         case 'note':
             text = 'NOTE';
+            Symbol = BsDash;
             break;
         case 'event':
-            text = 'EVENT'
+            text = 'EVENT';
+            Symbol = BsCircle;
             break;
         default:
     }
@@ -28,34 +94,16 @@ export const CustomLabel2 = (props) => {
     return <div ref={blockNode} className={`custom-block ${isDone && 'done'}`} style={style}>
         {isShowingOptions ?
             <div className="action-container">
-                <IoIosCheckmark className="icon icon-lg" onClick={() => {
-                    if (isDone) {
-                        handleChangeBlockType(`${type}`);
-                    } else {
-                        handleChangeBlockType(`${type}-done`);
-                    }
-                    setIsShowingOptions(false);
-                }} />
-                <IoIosClose className="icon icon-lg" onClick={() => {
-                    handleDeleteBlock(block.getKey());
-                }} />
-                <IoIosArrowForward className="icon" onClick={() => {
-                    handleMigrateBlock(block.getKey());
-                }} />
+                <IoIosCheckmark className="icon icon-lg" onClick={handleMarkDone} onTouchStart={handleMarkDone} />
+                <IoIosClose className="icon icon-lg" onClick={handleDelete} onTouchStart={handleDelete} />
+                <IoIosArrowForward className="icon" onClick={handleMigrate} onTouchStart={handleMigrate}/>
             </div> :
-            <button contentEditable={false} className='btn custom-label' onClick={() => {
-                setIsShowingOptions(true)
-                const height = blockNode.current.clientHeight;
-                setDefaultHeight(height);
-                const cancelHandler = (e) => {
-                    setDefaultHeight(null);
-                    setIsShowingOptions(false);
-                    document.removeEventListener('click', cancelHandler);
-                };
-                document.addEventListener('click', cancelHandler);
-            }}>
-                {text}
-            </button>
+            <>
+                <Symbol className="custom-label-mobile"></Symbol>
+                <button contentEditable={false} className='btn custom-label' onClick={handleChangeToShowingOptions} onTouchEnd={handleChangeToShowingOptions}>
+                    {text}
+                </button>
+            </>
         }
         <EditorBlock {...props} />
     </div>
@@ -93,4 +141,56 @@ export const CustomLabel = ({ type, children }) => {
             </div>
         })}
     </div>
+}
+
+class Swipe {
+    constructor(element) {
+        this.xDown = null;
+        this.element = typeof(element) === 'string' ? document.querySelector(element) : element;
+
+        this.touchStartHandler = (evt) => {
+            this.xDown = evt.touches[0].clientX;
+        }
+        this.element.addEventListener('touchstart', this.touchStartHandler);
+    }
+
+    onRight() {}
+
+    onRightTransition() {}
+
+    onResetTransition() {}
+
+    handleTouchMove = (evt) => {
+        if ( ! this.xDown) {
+            return;
+        }
+
+        var xUp = evt.touches[0].clientX;
+        this.xDiff = xUp - this.xDown;
+
+        if (this.xDiff >= 150) {
+            this.onRight(evt);
+        } else if (this.xDiff > 0) {
+            this.onRightTransition(this.xDiff);
+        }
+    }
+
+    run = () => {
+        this.touchMoveHandler = (evt) => {
+            this.handleTouchMove(evt);
+        }
+
+        this.touchEndHandler = (evt) => {
+            this.onResetTransition();
+        }
+
+        this.element.addEventListener('touchmove', this.touchMoveHandler);
+        this.element.addEventListener('touchend', this.touchEndHandler);
+    }
+
+    remove = () => {
+        this.element.removeEventListener('touchstart', this.touchStartHandler);
+        this.element.removeEventListener('touchmove', this.touchMoveHandler);
+        this.element.removeEventListener('touchend', this.touchEndHandler);
+    }
 }
