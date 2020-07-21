@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { IoIosCheckmark, IoIosClose, IoIosArrowForward } from 'react-icons/io';
-import { BsCircle, BsCircleFill, BsDash } from 'react-icons/bs';
+import { BsCircle, BsCircleFill, BsFillSquareFill } from 'react-icons/bs';
 import { EditorBlock } from 'draft-js';
 import { useRef } from 'react';
 
@@ -16,8 +16,8 @@ export const CustomLabel2 = (props) => {
     const handleChangeToShowingOptions = (e) => {
         e.stopPropagation();
         blockNode.current.style.transform=`translate(0, 0)`
-        setIsShowingOptions(true)
         const height = blockNode.current.clientHeight;
+        setIsShowingOptions(true)
         setDefaultHeight(height);
         const cancelHandler = (e) => {
             if (_UNMOUNTED) {return;}
@@ -80,7 +80,7 @@ export const CustomLabel2 = (props) => {
             break;
         case 'note':
             text = 'NOTE';
-            Symbol = BsDash;
+            Symbol = BsFillSquareFill;
             break;
         case 'event':
             text = 'EVENT';
