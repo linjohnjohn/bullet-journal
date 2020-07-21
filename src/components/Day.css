@@ -101,7 +101,7 @@
         display: inline-block;
     }
 
-    .custom-label {
+    .btn.custom-label {
         display: none;
     }
 }

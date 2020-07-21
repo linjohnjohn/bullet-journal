@@ -3,6 +3,7 @@ import moment from 'moment';
 import { List } from 'immutable'
 import { Editor, ContentBlock, EditorState, genKey, RichUtils, convertToRaw, convertFromRaw, Modifier } from 'draft-js';
 import { IoIosArrowDropleftCircle, IoIosArrowDroprightCircle, IoIosMenu, IoIosClose } from 'react-icons/io';
+import { BsCircle, BsCircleFill, BsFillSquareFill } from 'react-icons/bs';
 import Debounce from 'awesome-debounce-promise';
 import 'draft-js/dist/Draft.css'
 
@@ -330,9 +331,19 @@ export default class Day extends React.Component {
                         </div>
                         <div className="notebook-editor">
                             <div className='notes-toolbar'>
-                                <button className='btn' onClick={() => this.handleMakeType('task')}>Task</button>
-                                <button className='btn' onClick={() => this.handleMakeType('note')}>Note</button>
-                                <button className='btn' onClick={() => this.handleMakeType('event')}>Event</button>
+                                <button className='btn' onClick={() => this.handleMakeType('task')}>
+                                    <BsCircleFill className="custom-label-mobile"></BsCircleFill>
+                                    <span>Task</span>
+                                </button>
+                                <button className='btn' onClick={() => this.handleMakeType('note')}>
+                                <BsFillSquareFill className="custom-label-mobile"></BsFillSquareFill>
+                                <span>Note</span>
+                                    
+                                </button>
+                                <button className='btn' onClick={() => this.handleMakeType('event')}>
+                                    <BsCircle className="custom-label-mobile"></BsCircle>
+                                    <span>Event</span>
+                                </button>
                             </div>
                             <Editor
                                 editorState={editorState}
