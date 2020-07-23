@@ -3,6 +3,7 @@ import moment from 'moment';
 import { List } from 'immutable'
 import { Editor, ContentBlock, EditorState, genKey, RichUtils, convertToRaw, convertFromRaw, Modifier } from 'draft-js';
 import { IoIosArrowDropleftCircle, IoIosArrowDroprightCircle } from 'react-icons/io';
+import { BsCircle, BsCircleFill, BsFillSquareFill } from 'react-icons/bs';
 import Debounce from 'awesome-debounce-promise';
 import 'draft-js/dist/Draft.css'
 
@@ -70,7 +71,7 @@ export default class Day extends React.Component {
             return {
                 component: CustomLabel2,
                 props: {
-                    handleChangeBlockType: this.handleMakeType,
+                    handleChangeBlockType: this.handleChangeBlockType,
                     handleDeleteBlock: this.handleDeleteBlock,
                     handleMigrateBlock: this.handleMigrateBlock
                 }
@@ -96,6 +97,19 @@ export default class Day extends React.Component {
         }
         const editorState = computeEditorState(journalEntry);
         this.setState({ date, journalEntry, editorState, isLoading: false });
+    }
+
+    handleChangeBlockType = (blockKey, type) => {
+        const { editorState } = this.state;
+        const contentState = editorState.getCurrentContent();
+        const blockMap = contentState.getBlockMap();
+        const block = blockMap.get(blockKey);
+        const newBlock = block.set('type', type);
+        const newBlockMap = blockMap.set(blockKey, newBlock);
+        const newContentState = contentState.set('blockMap', newBlockMap);
+
+        const newEditorState = EditorState.push(editorState, newContentState, 'change-block-type');
+        this.handleChange(newEditorState);
     }
 
     handleDeleteBlock = (blockKey) => {
@@ -224,9 +238,18 @@ export default class Day extends React.Component {
                     <div className="notebook-body">
                         <div className="notebook-editor">
                             <div className='notes-toolbar'>
-                                <button className='btn' onClick={() => this.handleMakeType('task')}>Task</button>
-                                <button className='btn' onClick={() => this.handleMakeType('note')}>Note</button>
-                                <button className='btn' onClick={() => this.handleMakeType('event')}>Event</button>
+                                <button className='btn' onClick={() => this.handleMakeType('task')}>
+                                    <BsCircleFill className="custom-label-mobile"></BsCircleFill>
+                                    <span>Task</span>
+                                </button>
+                                <button className='btn' onClick={() => this.handleMakeType('note')}>
+                                    <BsFillSquareFill className="custom-label-mobile"></BsFillSquareFill>
+                                    <span>Note</span>
+                                </button>
+                                <button className='btn' onClick={() => this.handleMakeType('event')}>
+                                    <BsCircle className="custom-label-mobile"></BsCircle>
+                                    <span>Event</span>
+                                </button>
                             </div>
                             <Editor
                                 editorState={editorState}

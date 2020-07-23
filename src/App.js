@@ -25,7 +25,6 @@ class App extends React.Component {
           await UserAPI.initializeUser();
           const theme = await UserAPI.getColorTheme();
           setColorTheme(theme);
-          window.setColorTheme = setColorTheme;
         } catch (error) {
           document.dispatchEvent(new CustomEvent('custom-error', {
             detail: {

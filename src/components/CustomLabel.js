@@ -34,9 +34,9 @@ export const CustomLabel2 = (props) => {
     const handleMarkDone = (e) => {
         e.stopPropagation();
         if (isDone) {
-            handleChangeBlockType(`${type}`);
+            handleChangeBlockType(block.getKey(), `${type}`);
         } else {
-            handleChangeBlockType(`${type}-done`);
+            handleChangeBlockType(block.getKey(), `${type}-done`);
         }
         setIsShowingOptions(false);
     }

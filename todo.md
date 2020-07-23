@@ -38,7 +38,7 @@ Next Step
 -d android keyboard height dimesnion
 - offline support
 
-- height consideration
+-d height consideration
 
 -d change todo trigger to on click 
 -d color integration
@@ -50,15 +50,15 @@ Next Step
 
 
 
-- tracker fields validation
 
 -d monthly/yearly
 
 
 - ? tasks, event note highlighting on toolbar
-- d3 gradients
+-d d3 gradients
 - Plot all aggregate data in box charts (highlight on row hover?)
 
 Next
-- important tasks
-- show today yesterday tomorrow label
+- tracker fields validation
+- style thumb on slider
+- Print month

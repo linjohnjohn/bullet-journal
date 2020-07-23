@@ -76,7 +76,7 @@ export default class Day extends React.Component {
             return {
                 component: CustomLabel2,
                 props: {
-                    handleChangeBlockType: this.handleMakeType,
+                    handleChangeBlockType: this.handleChangeBlockType,
                     handleDeleteBlock: this.handleDeleteBlock,
                     handleMigrateBlock: this.handleMigrateBlock
                 }
@@ -103,6 +103,19 @@ export default class Day extends React.Component {
         }
         const editorState = computeEditorState(journalEntry);
         this.setState({ date, journalEntry, editorState, trackers, isLoading: false });
+    }
+
+    handleChangeBlockType = (blockKey, type) => {
+        const { editorState } = this.state;
+        const contentState = editorState.getCurrentContent();
+        const blockMap = contentState.getBlockMap();
+        const block = blockMap.get(blockKey);
+        const newBlock = block.set('type', type);
+        const newBlockMap = blockMap.set(blockKey, newBlock);
+        const newContentState = contentState.set('blockMap', newBlockMap);
+
+        const newEditorState = EditorState.push(editorState, newContentState, 'change-block-type');
+        this.handleChange(newEditorState);
     }
 
     handleDeleteBlock = (blockKey) => {
@@ -336,9 +349,8 @@ export default class Day extends React.Component {
                                     <span>Task</span>
                                 </button>
                                 <button className='btn' onClick={() => this.handleMakeType('note')}>
-                                <BsFillSquareFill className="custom-label-mobile"></BsFillSquareFill>
-                                <span>Note</span>
-                                    
+                                    <BsFillSquareFill className="custom-label-mobile"></BsFillSquareFill>
+                                    <span>Note</span>
                                 </button>
                                 <button className='btn' onClick={() => this.handleMakeType('event')}>
                                     <BsCircle className="custom-label-mobile"></BsCircle>
