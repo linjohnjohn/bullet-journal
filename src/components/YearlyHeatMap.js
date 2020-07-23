@@ -111,13 +111,20 @@ class YearlyHeatMap extends React.Component {
 
         const filteredRect = d3.selectAll('rect').filter(d => {
             return data[d.getTime()]
-        })
-            .attr('class', 'colored');
+        }).attr('class', 'colored');
+
+        const style = getComputedStyle(document.body);
+        const grey = style.getPropertyValue('--calendar-dull-box');
+        const color = style.getPropertyValue('--hover');
+        const colorGradient = d3.scaleLinear().range([grey, color]).domain([min, max]);
 
         if (type === 'Number') {
-            filteredRect.style('fill-opacity', (d) => {
-                const opacity = 100 * (data[d.getTime()] - min) / (max - min);
-                return `${opacity}%`
+            filteredRect.style('fill', (d) => {
+                return colorGradient(data[d.getTime()]);
+            });
+        } else {
+            filteredRect.style('fill', (d) => {
+                return color;
             });
         }
     }
