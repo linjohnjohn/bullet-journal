@@ -26,6 +26,10 @@
     flex-shrink: 0;
 }
 
+.custom-block .custom-label-mobile {
+    margin: 0.5rem;
+}
+
 .custom-block .action-container {
     align-self: center;
     display: flex;
