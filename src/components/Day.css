@@ -6,6 +6,15 @@
     text-decoration: line-through;
 }
 
+.custom-label {
+    align-self: center;
+    border-radius: 0.25em;
+    margin-right: 0.5em;
+    padding: 0.25em 0.5em;
+    border: 1px solid var(--border);
+    word-break: keep-all;
+}
+
 .notebook-header {
     position: relative;
     display: flex;

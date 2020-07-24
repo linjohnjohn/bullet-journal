@@ -8,14 +8,6 @@
     word-break: break-word;
 }
 
-.custom-label {
-    align-self: center;
-    border-radius: 0.25em;
-    margin-right: 0.5em;
-    padding: 0.25em 0.5em;
-    border: 1px solid var(--border);
-}
-
 .custom-label-mobile {
     display: none;
     font-size: 0.5rem;
@@ -25,9 +17,7 @@
 }
 
 .custom-block .custom-label-mobile {
-    margin: 1rem;
-    margin-left: 0.5rem;
-    margin-bottom: 0.5rem;
+    margin: 0.5rem;
 }
 
 .custom-block .action-container {
