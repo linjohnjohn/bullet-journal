@@ -4,6 +4,7 @@ import { BsCircle, BsCircleFill, BsFillSquareFill } from 'react-icons/bs';
 import { EditorBlock } from 'draft-js';
 
 import Swipeable from '../util/Swipeable';
+import './CustomLabel.css';
 
 export class CustomLabel2 extends React.Component {
     state = {
@@ -36,7 +37,7 @@ export class CustomLabel2 extends React.Component {
             if (this._UNMOUNTED || !this.state.isShowingOptions) { return; }
             this.setState({
                 isShowingOptions: false,
-                defaultHeight: height
+                defaultHeight: null
             });
         };
         document.addEventListener('click', cancelHandler);
