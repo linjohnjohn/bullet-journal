@@ -105,7 +105,7 @@ export class CustomLabel2 extends React.Component {
                     <IoIosArrowForward className="icon" onClick={this.handleMigrate} onTouchStart={this.handleMigrate} />
                 </div> :
                 <>
-                    <Swipeable onRightTransition={(xDiff) => {
+                    <Swipeable className="d-flex flex-column justify-content-center" onRightTransition={(xDiff) => {
                         this.blockNode.current.style.transform = `translate(${xDiff}px, 0)`
                     }}
                         onResetTransition={() => {
