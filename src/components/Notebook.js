@@ -1,10 +1,11 @@
 import React from 'react';
-import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import Day from './Day';
 import LongTerm from './LongTerm';
 import './Notebook.css';
 import VisualizationControl from './VisualizationControl';
 import Settings from './Settings';
+import Payment from './Payment';
 
 
 class Notebook extends React.Component {
@@ -14,12 +15,19 @@ class Notebook extends React.Component {
 
     render() {
         if (!this.props.user) {
-            return <Redirect to='/login' />;
+            this.props.history.push({
+                pathname: '/login',
+                state: {
+                    nextPathName: this.props.location.pathname
+                }
+            });
+            return null;
         }
         return <div className='notebook'>
             <div className='notebook-container'>
                 <Switch>
                     <Route exact={true} path='/visualization' component={VisualizationControl} />
+                    <Route exact={true} path='/payment' component={Payment} />
                     <Route exact={true} path='/colors' component={Settings} />
                     <Route exact={true} path='/month' render={(props) => {
                         const { date = new Date() } = props.location.state || {}

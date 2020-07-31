@@ -1,0 +1,79 @@
+.subscription-status-container {
+    text-align: center;
+    color: var(--text-accent);
+    width: 100%;
+    max-width: 500px;
+}
+
+.subscription-status-container {
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.subscription-status {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-accent);
+}
+
+.subscription-status-detail {
+    color: var(--text-color);
+}
+
+.subscription-status-container .btn {
+    margin-top: 2rem;
+    padding: 1rem 0;
+}
+
+.subscription-name {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.subscription-price {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--text-accent);
+}
+
+.subscription-detail {
+    font-size: 0.75rem;
+}
+
+.subscription-selection {
+    width: 100%;
+}
+
+.subscription-option {
+    text-align: center;
+    max-width: 250px;
+    border: var(--text-color) solid 1px;
+    border-radius: 1rem;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.subscription-option:not(:first-child) {
+    margin-left: 1rem;
+}
+
+.stripe-card-label {
+    color: var(--text-accent);
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.stripe-card-input {
+    margin-top: 0.5rem;
+    border: var(--text-color) 1px solid;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+}
+
+.btn.stripe-card-button {
+    width: 100%;
+    margin-top: 1rem;
+    text-align: center;
+    padding: 0.5rem;
+}

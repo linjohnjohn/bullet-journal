@@ -39,8 +39,13 @@ class Navbar extends React.Component {
                             this.props.history.push('/colors')
                             this.setState({ isNavPanelOpen: false })
                         }}>Colors</p>
+                        <p className='btn' onClick={(e) => {
+                            this.props.history.push('/payment')
+                            this.setState({ isNavPanelOpen: false })
+                        }}>Subscription</p>
                         <p className='btn' onClick={() => {
                             handleGoogleLogout();
+                            this.setState({ isNavPanelOpen: false })
                         }}>Logout</p>
                     </div>
                 </div>
