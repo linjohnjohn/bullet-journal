@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect, Switch, withRouter } from 'react-router-dom'
 import firebase from 'firebase';
 
 
@@ -59,9 +59,9 @@ class App extends React.Component {
 
   render() {
     const { user } = this.state;
+    const nextPathName = this.props.location.state && this.props.location.state.nextPathName || '/';
 
     return <Errors>
-      <Router>
         <Navbar
           user={user}
           handleGoogleLogin={this.handleGoogleLogin}
@@ -70,7 +70,7 @@ class App extends React.Component {
         <div className="journal-body">
           <Switch>
             <Route exact={true} path='/login'>
-              {user ? <Redirect to='/' /> : <div className='notebook'>
+              {user ? <Redirect to={nextPathName} /> : <div className='notebook'>
                 <div className="notebook-container centered-message">
                   <p style={{ fontSize: '2em' }}>Welcome to Mr. Bullet. Please login to see your journal!</p>
                 </div>
@@ -81,9 +81,8 @@ class App extends React.Component {
             </Route>
           </Switch>
         </div>
-      </Router>
     </Errors>
   }
 }
 
-export default App;
+export default withRouter(App);

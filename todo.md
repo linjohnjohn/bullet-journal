@@ -61,4 +61,19 @@ Next Step
 Next
 - tracker fields validation
 - style thumb on slider
+
+- debug slide
+
+- google fonts
+
+
 - Print month
+
+-d fetch product and price plans from firebase
+-d go to manage only if subscription exists? or?
+-d why is it possible to subscribe to same item multiple times
+
+- handle error for checkout enable buttons again and show toast
+- mobile view for checkout
+
+- close panel on logout (change login page style/ support multiple ways of logging in)

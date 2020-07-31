@@ -17,7 +17,7 @@ html {
   --border: hsl(var(--hue4), 6%, 43%);
   --hover: hsl(var(--hue1), 100%, 83%);
   --spare-color: hsl(var(--hue4), 10%, 50%);;
-  --spare-color2: hsl(var(--hue4), 25%, 60%);;
+  --text-accent: hsl(var(--hue4), 25%, 60%);;
   --text-color: hsl(var(--hue4), 6%, 43%);
   --text-color-opaque: hsla(var(--hue4), 6%, 43%, 0.3);
   --calendar-dull-box: hsla(var(--hue4), 6%, 43%, 0.8);
@@ -92,12 +92,6 @@ body {
   justify-content: center;
 }
 
-.flex-row {
-  display: flex;
-  flex-flow: row;
-  align-items: center;
-}
-
 input.full-width {
   font-size: 1em;
   background-color: transparent;
@@ -142,6 +136,10 @@ input.full-width {
   font-size: 3em;
 }
 
+.icon.icon-xl {
+  font-size: 8em;
+}
+
 .icon:hover {
   transform: scale(1.25);
 }
@@ -160,6 +158,7 @@ button.btn {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
 }
 
 .btn {
@@ -170,18 +169,34 @@ button.btn {
   transition: all 200ms;
 }
 
-.btn.selected {
+.btn.full-width {
+  width: 100%;
+  text-align: center;
+}
+
+.btn.selected, .btn:active {
   color: white;
   background-color: var(--text-color);
 }
 
-.btn:hover {
+.btn:hover:enabled {
   transform: scale(1.05);
 }
 
-.btn:active {
-  color: white;
-  background-color: var(--text-color);
+.btn:disabled {
+  opacity: 0.5;
+}
+
+.btn.btn-inverse:active {
+  color: var(--text-accent);
+  background-color: transparent;
+}
+
+.btn.btn-inverse {
+  mix-blend-mode: normal;
+  background-color: var(--text-accent);
+  color: var(--notebook-background);
+  border: 0px solid;  
 }
 
 @media only screen and (max-width: 720px) {
@@ -207,6 +222,34 @@ button.btn {
   flex-direction: column;
 }
 
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
 .justify-content-center {
   justify-content: center;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.justify-content-around {
+  justify-content: space-around;
+}
+
+.m-3 {
+  margin: 1rem;
 }
