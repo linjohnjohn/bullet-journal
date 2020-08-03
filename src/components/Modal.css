@@ -6,5 +6,8 @@
     transform: translate(-50%, -50%);
     background-color: var(--notebook-background);
     border-radius: 1em;
-    padding: 2em;
+    padding: 1em;
+
+    width: 90%;
+    max-width: 500px;
 }

@@ -99,7 +99,7 @@ const TrackerManager = ({
             isOpen={isAddingTracker}
             onClose={() => setIsAddingTracker(false)}
         >
-            <div style={{ width: 'min(300px, 90vw)' }}>
+            <div>
                 <div className="input-group">
 
                     <label>Tracker Name</label>
@@ -116,9 +116,9 @@ const TrackerManager = ({
                 <div className="input-group">
 
                     <label>Tracker Type</label>
-                    <div className='centered-message'>
+                    <div className='centered-message tracker-types-list'>
                         <button
-                            className={`btn ${newTrackerDetails.type === 'Binary' && 'selected'}`}
+                            className={`btn mr-3 ${newTrackerDetails.type === 'Binary' && 'selected'}`}
                             onClick={() => {
                                 const { min, max, ...t } = newTrackerDetails;
                                 setNewTrackerDetails({ ...t, type: 'Binary' });

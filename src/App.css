@@ -5,19 +5,21 @@ html {
   --hue2: 10;
   --hue3: 0;
   --hue4: 350;
-
-
   --notebook-background: hsl(var(--hue0), 77%, 95%);
   --panel-background: hsl(var(--hue0), 89%, 93%);
   --app-background: hsl(var(--hue1), 100%, 90%);
   --tab1: hsl(var(--hue1), 100%, 83%);
   --tab2: hsl(var(--hue2), 100%, 82%);
-  --tab3: hsl(var(--hue2), 85%, 77%);;
-  --tab4: hsl(var(--hue3), 80%, 77%);;
+  --tab3: hsl(var(--hue2), 85%, 77%);
+  ;
+  --tab4: hsl(var(--hue3), 80%, 77%);
+  ;
   --border: hsl(var(--hue4), 6%, 43%);
   --hover: hsl(var(--hue1), 100%, 83%);
-  --spare-color: hsl(var(--hue4), 10%, 50%);;
-  --text-accent: hsl(var(--hue4), 25%, 60%);;
+  --spare-color: hsl(var(--hue4), 10%, 50%);
+  ;
+  --text-accent: hsl(var(--hue4), 25%, 60%);
+  ;
   --text-color: hsl(var(--hue4), 6%, 43%);
   --text-color-opaque: hsla(var(--hue4), 6%, 43%, 0.3);
   --calendar-dull-box: hsla(var(--hue4), 6%, 43%, 0.8);
@@ -66,6 +68,35 @@ body {
   display: flex;
   justify-content: center;
   height: 90vh;
+}
+
+@keyframes BeaconFlick {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.beacon {
+  animation: BeaconFlick 1s infinite;
+  display: inline-block;
+  border-radius: 50%;
+  border: 3px solid var(--tab3);
+  padding: 3px;
+}
+
+.beacon:before {
+  background-color: var(--tab3);
+  border-radius: 50%;
+  content: "";
+  display: block;
+  height: 0.75rem;
+  width: 0.75rem;
 }
 
 .backdrop-overlay {
@@ -175,7 +206,6 @@ button.btn {
   border: 1px solid var(--border);
 }
 
-
 .btn.full-width {
   width: 100%;
   text-align: center;
@@ -203,18 +233,16 @@ button.btn {
   mix-blend-mode: normal;
   background-color: var(--text-accent);
   color: var(--notebook-background);
-  border: 0px solid;  
+  border: 0px solid;
 }
 
 @media only screen and (max-width: 720px) {
   .icon {
     font-size: 3em;
   }
-
   .icon.icon-lg {
     font-size: 4em;
   }
-
   button.btn {
     font-size: 1rem;
     padding: 0.75em 0.5em;
@@ -261,6 +289,10 @@ button.btn {
   margin: 1rem;
 }
 
+.mr-3 {
+  margin-right: 1rem;
+}
+
 .h1 {
   font-size: 2.5rem;
   text-align: center;
@@ -279,4 +311,16 @@ button.btn {
 .h4 {
   font-size: 1.25rem;
   text-align: center;
+}
+
+@media only screen and (max-width: 720px) {
+  .hide-on-desktop {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 721px) {
+  .hide-on-mobile {
+    display: none;
+  }
 }

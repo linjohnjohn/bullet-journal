@@ -58,6 +58,7 @@
 
 .notes-toolbar {
     display: flex;
+    position: relative;
     flex-flow: row wrap;
     padding-bottom: 1em;
     border-bottom: 1px solid var(--border);
@@ -69,7 +70,10 @@
     margin-left: 0.5rem;
 }
 
-
+.header-help {
+    position: absolute;
+    right: 0;
+}
 
 @media only screen and (max-width: 720px) {
     .notebook-tracker {

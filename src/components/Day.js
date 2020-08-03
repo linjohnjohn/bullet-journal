@@ -9,6 +9,7 @@ import 'draft-js/dist/Draft.css'
 
 import JournalEntryAPI from '../models/JournalEntryAPI';
 import TrackerManager from './TrackerManager';
+import Modal from './Modal';
 import { CustomLabel2 } from './CustomLabel';
 import './Day.css';
 import TrackerAPI from '../models/TrackerAPI';
@@ -38,7 +39,8 @@ export default class Day extends React.Component {
             trackers: [],
             isLoading: true,
             isSaving: false,
-            isTrackerPanelOpen: false
+            isTrackerPanelOpen: false,
+            isShowingHelping: false,
         }
 
         const { date } = props;
@@ -301,7 +303,7 @@ export default class Day extends React.Component {
     }
 
     render() {
-        const { trackers, date, editorState, isLoading, isSaving, isTrackerPanelOpen } = this.state;
+        const { trackers, date, editorState, isLoading, isSaving, isTrackerPanelOpen, isShowingHelping } = this.state;
         const readableDate = moment(date).format('MMM D, YYYY');
 
         return <>
@@ -356,6 +358,28 @@ export default class Day extends React.Component {
                                     <BsCircle className="custom-label-mobile"></BsCircle>
                                     <span>Event</span>
                                 </button>
+                                <span
+                                    className='beacon header-help'
+                                    onClick={() => {
+                                        this.setState({ isShowingHelping: true })
+                                    }} />
+                                <Modal isOpen={isShowingHelping} onClose={() => {
+                                    this.setState({ isShowingHelping: false })
+                                }}>
+                                    <p className="h3">Tips</p>
+                                    <p>
+                                        Categorize your notes using the Task, Note, and Event labels!
+                                    </p>
+                                    <p className="hide-on-mobile">
+                                        Swipe right on labels to mark them as done, delete them, or migrate them to tomorrow!
+                                    </p>
+                                    <p className="hide-on-desktop">
+                                        Click on labels to mark labels as done, delete them, or migrate them to tomorrow!
+                                    </p>
+                                    <p>
+                                        Happy BuJoing!
+                                    </p>
+                                </Modal>
                             </div>
                             <Editor
                                 editorState={editorState}
