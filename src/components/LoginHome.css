@@ -1,0 +1,42 @@
+.login-intro-container, .login-button-container {
+  width: 100%;
+  max-width: 500px;
+}
+
+.login-button-container .btn {
+  margin-bottom: 1rem;
+  width: 100%;
+  padding: 1rem 0;
+  font-weight: bold;
+  mix-blend-mode: normal;
+  border: none;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+}
+
+.login-button-container .btn.google-btn {
+  background-color: #fff;
+}
+
+.login-button-container .btn.facebook-btn {
+  background-color: #3b5998;
+  color: #fff;
+}
+
+.login-button-container .btn.email-btn {
+  background-color: var(--text-color);
+  color: #fff;
+}
+
+.login-button-container .login-icon {
+  font-size: 2rem;
+  margin-right: 1rem;
+}
+
+.btn.login-get-started {
+  margin-top: 1rem;
+  display: none;
+}
+
+
+@media only screen and (max-width: 997px) {
+}

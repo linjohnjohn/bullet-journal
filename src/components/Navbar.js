@@ -11,7 +11,7 @@ class Navbar extends React.Component {
 
     render() {
         const { isNavPanelOpen } = this.state;
-        const { user, handleGoogleLogin, handleGoogleLogout } = this.props;
+        const { user, handleLogout } = this.props;
 
         return <div className="navbar">
             <h3>Mr. Bullet</h3>
@@ -20,7 +20,7 @@ class Navbar extends React.Component {
                     <Avatar className='icon' onClick={() => {
                         this.setState({ isNavPanelOpen: true });
                     }}>{user.displayName.length > 0 ? user.displayName.charAt(0) : 'A'}</Avatar> :
-                    <button className="btn" onClick={handleGoogleLogin}>Google Login</button>
+                    null
                 }
             </div>
 
@@ -40,7 +40,8 @@ class Navbar extends React.Component {
                             this.setState({ isNavPanelOpen: false })
                         }}>Colors</p>
                         <p className='btn' onClick={() => {
-                            handleGoogleLogout();
+                            handleLogout();
+                            this.setState({ isNavPanelOpen: false })
                         }}>Logout</p>
                     </div>
                 </div>

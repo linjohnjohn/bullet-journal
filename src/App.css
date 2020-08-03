@@ -114,7 +114,7 @@ input.full-width {
 
 .input-group label {
   display: block;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.5rem;
 }
 
 .input-group input.full-width {
@@ -123,21 +123,21 @@ input.full-width {
 }
 
 .icon.icon-sm {
-  font-size: 2em;
+  font-size: 2rem;
 }
 
 .icon {
-  padding: 0 0.1em;
-  font-size: 2.5em;
+  padding: 0 0.1rem;
+  font-size: 2.5rem;
   transition: all 200ms;
 }
 
 .icon.icon-lg {
-  font-size: 3em;
+  font-size: 3rem;
 }
 
 .icon.icon-xl {
-  font-size: 8em;
+  font-size: 8rem;
 }
 
 .icon:hover {
@@ -150,10 +150,9 @@ input.full-width {
 }
 
 button.btn {
-  font-size: 1em;
-  padding: 0.25em 0.5em;
-  margin-right: 0.5em;
-  border-radius: 0.25em;
+  font-size: 1rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
   border: 1px solid var(--border);
   display: flex;
   flex-direction: row;
@@ -168,6 +167,14 @@ button.btn {
   color: var(--text-color);
   transition: all 200ms;
 }
+
+.btn.btn-lg {
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+}
+
 
 .btn.full-width {
   width: 100%;
@@ -252,4 +259,24 @@ button.btn {
 
 .m-3 {
   margin: 1rem;
+}
+
+.h1 {
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.h2 {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.h3 {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.h4 {
+  font-size: 1.25rem;
+  text-align: center;
 }
