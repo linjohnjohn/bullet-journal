@@ -10,12 +10,12 @@
     overflow: hidden;
 }
 
-
 .custom-label-mobile {
     font-size: 0.5rem;
     font-weight: bold;
     margin-right: 0.5rem;
     flex-shrink: 0;
+    display: none;
 }
 
 .custom-block .custom-label-mobile {
@@ -29,4 +29,11 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 0em;
+}
+
+@media only screen and (max-width: 720px) {
+    .custom-label-mobile {
+        display: none;
+        display: inline-block;
+    }
 }
