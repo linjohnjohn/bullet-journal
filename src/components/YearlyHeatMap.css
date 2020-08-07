@@ -1,0 +1,11 @@
+.month-in-year {
+    flex-basis: 150px;
+    min-width: 25%;
+    flex-grow: 1;
+    padding: 0 1em 1em 0;
+}
+
+.month-text {
+    margin: 0.5rem 0;
+    text-align: center;
+}

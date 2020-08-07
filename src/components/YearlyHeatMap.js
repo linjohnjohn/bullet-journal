@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import * as d3 from "d3";
+import moment from 'moment';
 
 import './MonthlyHeatMap.css';
 
@@ -36,11 +37,16 @@ class YearlyHeatMap extends React.Component {
             .style('position', 'absolute')
             .style('z-index', '10');
 
-        const months = d3.select('#heat-map').selectAll('.month-in-year').data(datesByMonth)
+        const monthContainers = d3.select('#heat-map').selectAll('.month-in-year').data(datesByMonth)
             .enter()
             .append('div')
-            .attr('class', 'month-in-year')
-            .append('svg').attr('viewBox', '0 0 700 600').attr('preserveAspectRatio', 'none')
+            .attr('class', 'month-in-year');
+
+        monthContainers.append('div').attr('class', 'month-text').text((d, i) => {
+            return moment().month(i).format("MMMM");
+        });
+
+        const months = monthContainers.append('svg').attr('viewBox', '0 0 700 600').attr('preserveAspectRatio', 'none')
 
         const handleDateClick = (d) => {
             this.props.history.push({

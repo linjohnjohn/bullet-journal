@@ -10,7 +10,7 @@
 }
 
 .viz-calendar {
-    flex-grow: 3;
+    flex-grow: 9;
     flex-basis: 600px;
     padding: 2em 0 0 2em;
 }
@@ -18,10 +18,9 @@
 .centered-button-row {
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-around;
+    justify-content: center;
 }
 
-.viz-panel-control .centered-button-row > button {
-    margin-bottom: 0.5em;
-    margin-right: 0;
+.centered-button-row > button {
+    margin: 0.25rem;
 }

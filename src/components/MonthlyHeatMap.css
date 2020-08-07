@@ -1,6 +1,20 @@
+.mhm-width-wrapper {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.monthly-heat-map-wrapper {
+    width: 100%;
+    padding-top: 75%;
+    position: relative;
+}
 
 #monthly-heat-map {
-    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
 }
 
 #monthly-heat-map svg {
@@ -52,4 +66,9 @@
     min-width: 25%;
     flex-grow: 1;
     padding: 0 1em 1em 0;
+}
+
+.month-text {
+    margin: 0.5rem 0;
+    text-align: center;
 }

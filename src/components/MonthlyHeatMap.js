@@ -78,16 +78,16 @@ class MonthlyHeatMap extends React.Component {
                 .duration(300)
                 .style("opacity", 0);
         }
-        
+
         dayGroup
             .on('click', handleDateClick)
             .on('mouseover', handleDateMouseover)
             .on('mouseout', handleDateMouseout);
-    
+
         dayGroup.append('rect')
             .attr('width', cellSize)
             .attr('height', cellSize)
-        
+
 
         dayGroup.append('text').text(d => day_of_month(d))
             .attr('x', cellSize / 2)
@@ -101,7 +101,7 @@ class MonthlyHeatMap extends React.Component {
         const grey = style.getPropertyValue('--calendar-dull-box');
         const color = style.getPropertyValue('--hover');
         const colorGradient = d3.scaleLinear().range([grey, color]).domain([min, max]);
-        
+
         if (type === 'Number') {
             filteredRect.style('fill', (d) => {
                 return colorGradient(data[d.getTime()]);
@@ -114,7 +114,11 @@ class MonthlyHeatMap extends React.Component {
     }
 
     render() {
-        return <div id='monthly-heat-map'>
+        return <div className="mhm-width-wrapper">
+            <div className="monthly-heat-map-wrapper">
+                <div id='monthly-heat-map'>
+                </div>
+            </div>
         </div>
     }
 }

@@ -46,7 +46,7 @@
 }
 
 .notebook-editor {
-    flex-grow: 1;
+    flex-grow: 9;
     flex-basis: 0px;
     height: 100%;
     width: 100%;
