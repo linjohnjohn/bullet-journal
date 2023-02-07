@@ -43,6 +43,7 @@
 .notebook-tracker {
     padding: 2em 0;
     height: 100%;
+    overflow-y: auto;
 }
 
 .notebook-editor {
